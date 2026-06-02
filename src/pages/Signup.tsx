@@ -73,7 +73,7 @@ const Signup = ({ }: IProps) => {
                 <main>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {/* name input */}
-                        <div className="flex flex-col gap-2 w-120 h-23.25">
+                        <div className="flex flex-col gap-2 w-120 mt-3">
                             <label htmlFor="fullName" className='text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '>Full Name</label>
 
                             <input className="w-120 h-12 border border-transparent rounded-sm  focus:border-blue-500 py-3.5 px-4 bg-(--color-surface-highest)
@@ -89,10 +89,11 @@ const Signup = ({ }: IProps) => {
                                 placeholder="Enter your full name" type="text"
                                 {...register("fullName")}
                             />
+                            {errors.fullName && <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.fullName.message}</p>}
                         </div>
-                        {errors.fullName && <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.fullName.message}</p>}
+
                         {/* email input */}
-                        <div className="flex flex-col gap-2 w-120 h-23.25">
+                        <div className="flex flex-col gap-2 w-120 mt-3">
                             <label htmlFor="email" className='text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '>Email</label>
 
                             <input className="w-120 h-12 border border-transparent rounded-sm py-3.5 px-4 bg-(--color-surface-highest)
@@ -108,11 +109,12 @@ const Signup = ({ }: IProps) => {
                                 {...register("email")}
 
                             />
+                            {errors.email && <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.email.message}</p>}
                         </div>
-                        {errors.email && <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.email.message}</p>}
+
 
                         {/* Job title */}
-                        <div className="flex flex-col gap-2 w-120 h-23.25">
+                        <div className="flex flex-col gap-2 w-120 mt-3">
                             <label htmlFor="jobTitle" className='text-slate-700 font-bold 
                         text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '
                             >Job Title <span className="font-[400px] text-[11px] leading-[100%] tracking-normal lowercase text-[#737685] ">(optional)</span></label>
@@ -132,7 +134,7 @@ const Signup = ({ }: IProps) => {
                         </div>
 
                         {/* password */}
-                        <div className='grid grid-cols-2 gap-4 w-120 '>
+                        <div className='grid grid-cols-2 gap-4 w-120 mt-3'>
                             <div className="flex flex-col gap-2 w-full h-23.25 relative">
                                 <label htmlFor="password" className='text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '>Password</label>
 
@@ -157,7 +159,7 @@ const Signup = ({ }: IProps) => {
                                     className="absolute left-50 top-1/2 -translate-y-1/2 cursor-pointer w-5 h-5"
 
                                 />
-                                {errors.password && <p>{errors.password.message}</p>}
+                                {errors.password && <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.password.message}</p>}
 
                             </div>
 
@@ -183,8 +185,15 @@ const Signup = ({ }: IProps) => {
                                             "Passwords do not match",
                                     })}
                                 />
+                                {errors.confirmPassword && (
+                                    <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">
+                                        {errors.confirmPassword.message}
+                                    </p>
+                                )}
                             </div>
                         </div>
+
+                        {/* validation password */}
                         <div className="mt-2 bg-[#E8EDFF] rounded-lg p-4">
                             <div className="flex items-center gap-2">
                                 <span>
