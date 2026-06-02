@@ -32,8 +32,8 @@ const Login = ({ }: IProps) => {
         try{
             setLoading(true);
             const res=await loginUser(data);
-            saveTokens(res.access_token, res.refresh_token);
-            console.log(res.access_token, res.refresh_token);
+            saveTokens(res.access_token, res.refresh_token,data.rememberMe ?? false);
+            // console.log(res.access_token, res.refresh_token);
             toast.success("Logged in successfully! 🎉🎉");
             Navigate("/")
             
@@ -83,7 +83,7 @@ const Login = ({ }: IProps) => {
               {/* remember me and forgot password */}
               <div className="mt-5 w-full flex items-center justify-between mt-3">
                 <div className="flex items-center gap-2 md:w-[121.23px] ">
-                  <input type="checkbox" id="remember" className="w-4 h-4 rounded-xs border border-[#C3C6D6] bg-(--color-surface-low) " />
+                  <input type="checkbox" id="remember" className="w-4 h-4 rounded-xs border border-[#C3C6D6] bg-(--color-surface-low) " {...register("rememberMe")} />
                   <label htmlFor="remember" className="text-[#434654] text-[14px] font-medium leading-5 tracking-normal">Remember Me</label>
                 </div>
                 <a href="#" className="text-[var(--color-primary)] text-[14px] font-medium leading-5 tracking-normal">Forgot password?</a>
