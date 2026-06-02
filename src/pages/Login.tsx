@@ -1,6 +1,10 @@
 
 
+import { useForm } from 'react-hook-form';
 import visualShadow from '../assets/images/Visual Accents (Editorial Texture).svg'
+import { loginSchema, type LoginFormData } from '../schemas/login.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import FormInput from '../components/FormInput';
 interface IProps {
 
 
@@ -8,6 +12,18 @@ interface IProps {
 }
 
 const Login = ({ }: IProps) => {
+  const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm<LoginFormData>({
+  resolver: zodResolver(loginSchema),
+});
+
+// handle form submission
+ const onSubmit = async (data: LoginFormData) => {
+        console.log(data);
+    }
   return (
     <div className='w-full flex-1  md:min-h-screen flex md:items-center md:justify-center relative overflow-x-hidden'>
       <div className="hidden md:block">
@@ -30,51 +46,19 @@ const Login = ({ }: IProps) => {
           </header>
 
           <main className="w-full max-w-97.5 md:w-120 mx-auto mt-7 md:mt-5">
-            <form className="w-full " >
+            <form className="w-full " onSubmit={handleSubmit(onSubmit)} >
               {/* email input */}
-              <div className="flex flex-col justify-start  gap-2 w-full mt-3">
-                <label className="text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase">
-                  Email
-                </label>
-
-                <input
-                  type='email'
-                  placeholder="yourname@company.com"
-
-                  className="  w-full
-      h-14
-    md:h-12 border border-transparent rounded-lg  px-4
-    py-4.5
-    md:py-3.5
-
-   
-    md:rounded-xs
-
-    bg-(--color-surface-highest)
-
-    placeholder:text-[#737685]
-    placeholder:text-[16px]
-    placeholder:font-normal"
-                />
-
-
-              </div>
+              <FormInput 
+                label="Email" placeholder="yourname@company.com" type="email" registration={register("email")} error={errors.email}
+              
+              />
+              
               {/* password input */}
+              <FormInput 
+                label="Password" placeholder="Enter your password" type="password" registration={register("password")} error={errors.password}
+              />
 
-              <div className="flex flex-col justify-start gap-2 w-full mt-5">
-                <label className="text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase">
-                  Password
-                </label>
-
-                <input
-                  type='password'
-                  placeholder="Enter your password"
-
-                  className="w-full h-12 border border-transparent rounded-sm py-3.5 px-4 bg-(--color-surface-highest) placeholder:text-[#737685] placeholder:text-[16px] placeholder:font-normal"
-                />
-
-
-              </div>
+              
 
               {/* remember me and forgot password */}
               <div className="mt-5 w-full flex items-center justify-between mt-3">
