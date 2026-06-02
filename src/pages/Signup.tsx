@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import signupUser from "../services/auth.service";
 import toast from "react-hot-toast";
+import FormInput from "../components/FormInput";
 
 interface IProps {
 
@@ -73,66 +74,29 @@ const Signup = ({ }: IProps) => {
                 <main>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {/* name input */}
-                        <div className="flex flex-col gap-2 w-120 mt-3">
-                            <label htmlFor="fullName" className='text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '>Full Name</label>
-
-                            <input className="w-120 h-12 border border-transparent rounded-sm  focus:border-blue-500 py-3.5 px-4 bg-(--color-surface-highest)
-                        placeholder:text-[#737685] 
-                        placeholder:text-[16px] 
-                        placeholder:leading-[100%] 
-                        placeholder:tracking-normal 
-                        placeholder:font-normal
-                        
-                        
-                        "
-
-                                placeholder="Enter your full name" type="text"
-                                {...register("fullName")}
-                            />
-                            {errors.fullName && <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.fullName.message}</p>}
-                        </div>
+                        <FormInput
+                            label="Full Name"
+                            placeholder="Enter your full name"
+                            registration={register("fullName")}
+                            error={errors.fullName}
+                        />
+                       
 
                         {/* email input */}
-                        <div className="flex flex-col gap-2 w-120 mt-3">
-                            <label htmlFor="email" className='text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '>Email</label>
-
-                            <input className="w-120 h-12 border border-transparent rounded-sm py-3.5 px-4 bg-(--color-surface-highest)
-                        placeholder:text-[#737685] 
-                        placeholder:text-[16px] 
-                        placeholder:leading-[100%] 
-                        placeholder:tracking-normal 
-                        placeholder:font-normal
-                        
-                        
-                        "
-                                placeholder="yourname@company.com" type="email"
-                                {...register("email")}
-
-                            />
-                            {errors.email && <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.email.message}</p>}
-                        </div>
-
+                        <FormInput
+                            label="Email"
+                            placeholder="Enter your email address"
+                            registration={register("email")}
+                            error={errors.email}
+                        />
 
                         {/* Job title */}
-                        <div className="flex flex-col gap-2 w-120 mt-3">
-                            <label htmlFor="jobTitle" className='text-slate-700 font-bold 
-                        text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '
-                            >Job Title <span className="font-[400px] text-[11px] leading-[100%] tracking-normal lowercase text-[#737685] ">(optional)</span></label>
-
-                            <input className="w-120 h-12 border border-transparent rounded-sm py-3.5 px-4 bg-(--color-surface-highest)
-                        placeholder:text-[#737685] 
-                        placeholder:text-[16px] 
-                        placeholder:leading-[100%] 
-                        placeholder:tracking-normal 
-                        placeholder:font-normal
-                        
-                        
-                        "
-                                placeholder="e.g. Project Manager"
-                                {...register("jobTitle")}
-                            />
-                        </div>
-
+                        <FormInput
+                            label="Job Title (optional)"
+                            placeholder="Enter your job title"
+                            registration={register("jobTitle")}
+                            error={errors.jobTitle}
+                        />
                         {/* password */}
                         <div className='grid grid-cols-2 gap-4 w-120 mt-3'>
                             <div className="flex flex-col gap-2 w-full h-23.25 relative">
