@@ -1,4 +1,4 @@
-import type { SignupFormData } from "../schemas/signup.schema";
+import type { SignupFormData } from "../../schemas/signup.schema";
 
  const signupUser = async (data: SignupFormData) => {
   const res = await fetch("https://yfiphsggadtumstkunju.supabase.co/auth/v1/signup", {

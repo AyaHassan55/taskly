@@ -5,6 +5,10 @@ import visualShadow from '../assets/images/Visual Accents (Editorial Texture).sv
 import { loginSchema, type LoginFormData } from '../schemas/login.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormInput from '../components/FormInput';
+import { useState } from 'react';
+import loginUser from '../services/auth/login.service';
+import {toast} from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 interface IProps {
 
 
@@ -12,6 +16,8 @@ interface IProps {
 }
 
 const Login = ({ }: IProps) => {
+  const [loading, setLoading] = useState(false);
+  const Navigate = useNavigate();
   const {
   register,
   handleSubmit,
@@ -22,8 +28,19 @@ const Login = ({ }: IProps) => {
 
 // handle form submission
  const onSubmit = async (data: LoginFormData) => {
-        console.log(data);
-    }
+        try{
+            setLoading(true);
+            await loginUser(data);
+            toast.success("Logged in successfully! 🎉🎉");
+            Navigate("/")
+            
+        }catch(error: any) {
+          toast.error(error.message || "Something went wrong");
+
+        }finally{
+          setLoading(false);
+        }
+}
   return (
     <div className='w-full flex-1  md:min-h-screen flex md:items-center md:justify-center relative overflow-x-hidden'>
       <div className="hidden md:block">

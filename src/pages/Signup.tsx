@@ -11,7 +11,7 @@ import {
     type SignupFormData,
 } from "../schemas/signup.schema";
 import { useState } from "react";
-import signupUser from "../services/auth.service";
+import signupUser from "../services/auth/signup.service";
 import toast from "react-hot-toast";
 import FormInput from "../components/FormInput";
 
