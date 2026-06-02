@@ -5,8 +5,8 @@ import { z } from "zod";
 const nameRegex =
   /^(?!.*\s{2,})[\p{L}]+(?: [\p{L}]+)*$/u;
 
-const passwordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[^\s]{8,64}$/;
+// const passwordRegex =
+//   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[^\s]{8,64}$/;
 
 export const signupSchema = z
   .object({

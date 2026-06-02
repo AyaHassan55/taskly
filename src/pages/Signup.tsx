@@ -1,7 +1,8 @@
 import iconEmptyCheck from "../assets/icons/icon_empty_check.svg"
 import iconSelect from "../assets/icons/icon_right.svg"
 import eyeShow from "../assets/icons/Icon_show_pass.svg"
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +11,8 @@ import {
     type SignupFormData,
 } from "../schemas/signup.schema";
 import { useState } from "react";
+import signupUser from "../services/auth.service";
+import toast from "react-hot-toast";
 
 interface IProps {
 
@@ -17,7 +20,9 @@ interface IProps {
 }
 
 const Signup = ({ }: IProps) => {
-    const [showPassword, setShowPassword ] = useState(false)
+    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { register,
         handleSubmit,
         watch,
@@ -37,7 +42,22 @@ const Signup = ({ }: IProps) => {
         special: /[!@#$%^&*]/.test(password),
     }
 
-    const onSubmit: SubmitHandler<SignupFormData> = (data) => console.log(data)
+    const onSubmit = async (data: SignupFormData) => {
+        try {
+            setLoading(true);
+            await signupUser(data);
+            toast.success("Account created successfully! 🎉🎉");
+            navigate('/project')
+        }
+        catch (error: any) {
+            toast.error(error.message || "Something went wrong");
+            console.error(error.message);
+        }
+        finally {
+            setLoading(false)
+        }
+
+    }
     return (
         <div className='w-full flex justify-center mb-20'>
             <div className=" w-xl flex flex-col items-center justify-center pb-10 border border-transparent rounded-lg  shadow-[0px_24px_48px_0px_#041B3C0F]  p-12">
@@ -69,7 +89,7 @@ const Signup = ({ }: IProps) => {
                                 placeholder="Enter your full name" type="text"
                                 {...register("fullName")}
                             />
-                        </div> 
+                        </div>
                         {errors.fullName && <p className="text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.fullName.message}</p>}
                         {/* email input */}
                         <div className="flex flex-col gap-2 w-120 h-23.25">
@@ -126,7 +146,7 @@ const Signup = ({ }: IProps) => {
                         
                         "
                                     placeholder="Password"
-                                    type= {showPassword ? "text":"password"}
+                                    type={showPassword ? "text" : "password"}
                                     {...register("password")}
 
                                 />
@@ -135,7 +155,7 @@ const Signup = ({ }: IProps) => {
                                     alt="toggle password"
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute left-50 top-1/2 -translate-y-1/2 cursor-pointer w-5 h-5"
-                                   
+
                                 />
                                 {errors.password && <p>{errors.password.message}</p>}
 
@@ -218,7 +238,13 @@ const Signup = ({ }: IProps) => {
                         </div>
 
                         {/* submit button */}
-                        <button className="w-120 h-12 cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit">Create Account</button>
+                        <button className="w-120 h-12 flex items-center justify-center cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit">
+                            {loading ? (
+                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin center"></div>
+                            ) : (
+                                "Create Account"
+                            )}
+                        </button>
                     </form>
                 </main>
                 {/* footer form */}
