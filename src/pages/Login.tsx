@@ -33,7 +33,7 @@ const Login = ({ }: IProps) => {
             setLoading(true);
             const res=await loginUser(data);
             saveTokens(res.access_token, res.refresh_token,data.rememberMe ?? false);
-            // console.log(res.access_token, res.refresh_token);
+            console.log(res.access_token, res.refresh_token);
             toast.success("Logged in successfully! 🎉🎉");
             Navigate("/")
             
@@ -90,11 +90,20 @@ const Login = ({ }: IProps) => {
               </div>
 
               {/* login button */}
-              <button className="mt-7 w-full h-12 flex items-center justify-center cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit">
-                {/* mobile */}
-                <span className="md:hidden flex items-center gap-2"> Sign In<span>→</span></span>
-                {/* desktop */}
-                <span className="hidden md:inline">Log in</span>
+              <button className="mt-7 w-full h-12 flex items-center justify-center cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
+                {
+                  loading ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin center"></div>
+                  ) : ( 
+                    <>
+                      {/* mobile */}
+                      <span className="md:hidden flex items-center gap-2"> Sign In<span>→</span></span>
+                      {/* desktop */} 
+                      <span className="hidden md:inline">Log in</span>
+                    </>
+                  )
+                }
+               
               </button>
               <div className="md:hidden flex justify-center mt-4">
                 <img
