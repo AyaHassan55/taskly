@@ -5,6 +5,7 @@ import './App.css'
 import Header from './components/Header'
 import Projects from './pages/projects'
 import Signup from './pages/Signup'
+import Login from './pages/Login'
 
 function App() {
 
@@ -16,8 +17,9 @@ function App() {
         <Header />
         <div className="flex-1">
           <Routes>
-            <Route path="/" element={<Signup />} />
-            <Route path="/project" element={<Projects />} />
+            <Route path="/sign-up" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Projects />} />
           </Routes>
         </div>
       </div>

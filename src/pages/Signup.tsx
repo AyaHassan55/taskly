@@ -48,7 +48,7 @@ const Signup = ({ }: IProps) => {
             setLoading(true);
             await signupUser(data);
             toast.success("Account created successfully! 🎉🎉");
-            navigate('/project')
+            navigate('/')
         }
         catch (error: any) {
             toast.error(error.message || "Something went wrong");
@@ -222,7 +222,7 @@ const Signup = ({ }: IProps) => {
                 </main>
                 {/* footer form */}
                 <footer className="mt-6 flex justify-center">
-                    <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Already have an account? <a href="#" className="text-(--color-primary) font-semibold "> Log in</a></p>
+                    <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Already have an account? <a href="/login" className="text-(--color-primary) font-semibold "> Log in</a></p>
                 </footer>
             </div>
         </div>
