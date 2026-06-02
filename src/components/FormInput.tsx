@@ -18,7 +18,7 @@ const FormInput=({
     error,
 }:FormInputProps )=> {
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-2 w-full mt-3">
       <label className="text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase">
         {label}
       </label>
