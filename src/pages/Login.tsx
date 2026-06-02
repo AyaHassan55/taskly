@@ -9,6 +9,7 @@ import { useState } from 'react';
 import loginUser from '../services/auth/login.service';
 import {toast} from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { saveTokens } from '../utils/auth-storage';
 interface IProps {
 
 
@@ -30,7 +31,9 @@ const Login = ({ }: IProps) => {
  const onSubmit = async (data: LoginFormData) => {
         try{
             setLoading(true);
-            await loginUser(data);
+            const res=await loginUser(data);
+            saveTokens(res.access_token, res.refresh_token);
+            console.log(res.access_token, res.refresh_token);
             toast.success("Logged in successfully! 🎉🎉");
             Navigate("/")
             
