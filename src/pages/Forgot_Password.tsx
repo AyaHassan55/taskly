@@ -8,6 +8,7 @@ import SuccessAlert from "../components/SuccessAlert";
 import { useResendTimer } from "../hooks/useResendTimer";
 import ResendSection from "../components/ResendSection";
 import toast from "react-hot-toast";
+import forgotPassword from "../services/auth/forgot-password.service";
 interface IProps {
 
 
@@ -39,14 +40,17 @@ const Forgot_Password = ({ }: IProps) => {
      }
    },[hasReachedLimit])
   // handle form submission
-  const onSubmit = (data: ForgotPasswordFormData) => {
+  const onSubmit =async (data: ForgotPasswordFormData) => {
     try {
       setLoading(true);
+      await forgotPassword(data.email)
+      
       setIsSuccess(true);
       restartTimer()
       console.log(data)
-    } catch (err: any) {
-      console.log(err)
+    } catch (error: any) {
+      toast.error("Something went wrong. Please try again.");
+      console.log(error.message)
     } finally { setLoading(false) }
   }
   return (
