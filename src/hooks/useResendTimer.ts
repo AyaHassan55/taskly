@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 
 const max_attempts=3;
-const inital_time=300;
+const inital_time=30;
 export const useResendTimer=()=>{
     const [timeLeft, setTimeLeft] = useState(inital_time);
     const [attempts, setAttempts] = useState(0);
