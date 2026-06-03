@@ -81,16 +81,16 @@ const Login = ({ }: IProps) => {
               
 
               {/* remember me and forgot password */}
-              <div className="mt-5 w-full flex items-center justify-between mt-3">
+              <div className="w-full flex items-center justify-between mt-5">
                 <div className="flex items-center gap-2 md:w-[121.23px] ">
                   <input type="checkbox" id="remember" className="w-4 h-4 rounded-xs border border-[#C3C6D6] bg-(--color-surface-low) " {...register("rememberMe")} />
                   <label htmlFor="remember" className="text-[#434654] text-[14px] font-medium leading-5 tracking-normal">Remember Me</label>
                 </div>
-                <a href="#" className="text-[var(--color-primary)] text-[14px] font-medium leading-5 tracking-normal">Forgot password?</a>
+                <a href="/forgot-password" className="text-[var(--color-primary)] text-[14px] font-medium leading-5 tracking-normal">Forgot password?</a>
               </div>
 
               {/* login button */}
-              <button className="mt-7 w-full h-12 flex items-center justify-center cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
+              <button className="mt-7 w-full h-12 flex items-center justify-center cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
                 {
                   loading ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin center"></div>
