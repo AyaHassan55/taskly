@@ -9,7 +9,7 @@ const forgotPassword= async(email:string)=>{
                 "apikey": import.meta.env.VITE_SUPABASE_ANON_KEY,
             "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
         },
-        body:JSON.stringify({email})
+        body:JSON.stringify({email,redirectTo: "http://localhost:5173/reset-password",})
         
 
     });

@@ -6,6 +6,10 @@ import iconSelect from "../assets/icons/icon_right.svg"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { resetPasswordSchema, type ResetPasswordFormData } from "../schemas/reset_password.schema"
+import updatePassword from "../services/auth/reset-password.service"
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 interface IProps {
 
 
@@ -15,10 +19,12 @@ interface IProps {
 const Reset_Password = ({ }: IProps) => {
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
+
     const { register,
         handleSubmit,
         watch,
-        getValues,
+       
         formState: { errors },
 
     } = useForm<ResetPasswordFormData>({
@@ -34,10 +40,43 @@ const Reset_Password = ({ }: IProps) => {
         digit: /\d/.test(password),
         special: /[!@#$%^&*]/.test(password),
     }
-    const onSubmit=(data:ResetPasswordFormData)=>{
-        console.log(data)
+    const hash = window.location.hash;
 
-    }
+const accessToken = new URLSearchParams(
+  hash.replace("#", "")
+).get("access_token");
+
+// handel submit 
+    const onSubmit = async (data: ResetPasswordFormData) => {
+  try {
+    setLoading(true);
+
+    if (!accessToken) {
+      toast.error("Invalid or expired reset link");
+      return;
+    } 
+
+    await updatePassword(
+      data.password,
+      accessToken
+    );
+
+    toast.success(
+      "Your password has been updated successfully. You can now log in"
+    );
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 3000);
+
+  } catch (error: any) {
+    toast.error(
+      error.message || "Failed to update password"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
     return (
         <div className="flex justify-center align-center min-h-screen w-full ">
             <div className=" md:w-lg flex-col  justify-start border border-transparent rounded-lg md:shadow-[0px_24px_48px_-12px_#041B3C0F] md:p-10">

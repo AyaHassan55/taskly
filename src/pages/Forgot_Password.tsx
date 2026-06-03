@@ -44,6 +44,7 @@ const Forgot_Password = ({ }: IProps) => {
     try {
       setLoading(true);
       await forgotPassword(data.email)
+      toast.success('success')
       
       setIsSuccess(true);
       restartTimer()
