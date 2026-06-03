@@ -211,7 +211,9 @@ const Signup = ({ }: IProps) => {
                         </div>
 
                         {/* submit button */}
-                        <button className="md:w-120 w-85.5  h-12 flex items-center justify-center cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit">
+                        <button className="md:w-120 w-85.5  h-12 flex items-center justify-center cursor-pointer bg-linear-to-r 
+                        from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6
+                         shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
                             {loading ? (
                                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin center"></div>
                             ) : (
