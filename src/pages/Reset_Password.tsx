@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form"
 import { resetPasswordSchema, type ResetPasswordFormData } from "../schemas/reset_password.schema"
 import updatePassword from "../services/auth/reset-password.service"
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface IProps {
 
@@ -40,11 +40,8 @@ const Reset_Password = ({ }: IProps) => {
         digit: /\d/.test(password),
         special: /[!@#$%^&*]/.test(password),
     }
-    const hash = window.location.hash;
-
-const accessToken = new URLSearchParams(
-  hash.replace("#", "")
-).get("access_token");
+    const [searchParam] = useSearchParams();
+    const accessToken=searchParam.get("access_token")
 
 // handel submit 
     const onSubmit = async (data: ResetPasswordFormData) => {

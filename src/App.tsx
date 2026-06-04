@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Forgot_Password from './pages/Forgot_Password'
 import Reset_Password from './pages/Reset_Password'
+import AuthRedirect from './components/AuthRedirect'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
    
       
       <div className="min-h-screen flex flex-col">
+         <AuthRedirect />
         <Header />
         <div className="flex-1">
           <Routes>
