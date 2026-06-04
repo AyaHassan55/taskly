@@ -28,7 +28,9 @@ const ResendSection = ({timeLeft,canResend,attempts,hasReachedLimit,restartTimer
         }
     };
     return (
-        <div className="flex flex-col items-center justify-center mt-6 gap-3">
+        // desktop resend
+        <div className="hidden md:flex flex-col items-center justify-center mt-6 gap-3 ">
+            
             <h3 className="text-[11px] font-bold text-[#434654] leading-[16.5px] tracking-[0.55px] uppercase">Didn't receive the email?</h3>
             <button disabled={!canResend || hasReachedLimit} type="button"
                 onClick={handleResend}
@@ -40,6 +42,8 @@ const ResendSection = ({timeLeft,canResend,attempts,hasReachedLimit,restartTimer
             </button>
 
         </div>
+       
+
     )
 }
 

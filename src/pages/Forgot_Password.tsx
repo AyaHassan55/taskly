@@ -9,6 +9,9 @@ import { useResendTimer } from "../hooks/useResendTimer";
 import ResendSection from "../components/ResendSection";
 import toast from "react-hot-toast";
 import forgotPassword from "../services/auth/forgot-password.service";
+import ResendIcon from "../assets/icons/resend-Icon.svg"
+import SuccessIcon from "../assets/icons/Icon_success.svg"
+import { formatTime } from "../utils/format-time";
 interface IProps {
 
 
@@ -34,18 +37,18 @@ const Forgot_Password = ({ }: IProps) => {
     incrementAttempts,
   } = useResendTimer();
 
-   useEffect(()=>{
-     if(hasReachedLimit){
+  useEffect(() => {
+    if (hasReachedLimit) {
       toast.error('You have reached the maximum number of resend attempts.')
-     }
-   },[hasReachedLimit])
+    }
+  }, [hasReachedLimit])
   // handle form submission
-  const onSubmit =async (data: ForgotPasswordFormData) => {
+  const onSubmit = async (data: ForgotPasswordFormData) => {
     try {
       setLoading(true);
       await forgotPassword(data.email)
       toast.success('success')
-      
+
       setIsSuccess(true);
       restartTimer()
       console.log(data)
@@ -55,17 +58,23 @@ const Forgot_Password = ({ }: IProps) => {
     } finally { setLoading(false) }
   }
   return (
-    <div className="flex justify-center align-center min-h-screen w-full " >
+    <div className="flex justify-center md:items-center  items-start min-h-screen w-full " >
       {/* card */}
-      <div className="card md:w-md flex-col  justify-start border border-transparent rounded-lg md:shadow-[0px_24px_48px_-12px_#041B3C0F] md:p-10" >
+      <div className="card md:w-md flex flex-col  md:justify-start justify-center border border-transparent rounded-lg 
+      md:shadow-[0px_24px_48px_-12px_#041B3C0F] p-10
+      shadow-[0px_24px_48px_-12px_#041B3C0F ]  "
+      >
+        <div className="md:hidden w-12 h-12 rounded-xl bg-[#D7E2FF] flex items-center justify-center mx-auto">
+          <img src={ResendIcon} alt="resend icon " />
+        </div>
         {/* Header */}
-        <header className="flex flex-col justify-start align-center  mt-10 gap-1.75">
-          <h1 className="md:text-[32px] font-semibold leading-10 tracking-[-0.8px] ">Forgot Password</h1>
-          <p className="text-[#434654] md:text-[14px] font-normal leading-[22.75px] tracking-normal md:pb-[0.75px]">
+        <header className="flex flex-col justify-start items-center md:items-start  md:mt-10 gap-1.75">
+          <h1 className="md:text-[32px] text-[24px] font-semibold md:leading-10 leading-8 md:tracking-[-0.8px] tracking-normal text-[#041B3C] md:mt-0 mt-5 ">Forgot password?</h1>
+          <p className="text-[#434654] text-center md:text-start md:text-[14px] font-normal md:leading-[22.75px] leading-5 tracking-normal md:pb-[0.75px] pb-8 ">
             No worries, we'll send you reset instructions.
           </p>
         </header>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-start align-center gap-6 mt-6 w-full" >
+        <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col justify-start items-center gap-6 mt-6 w-full" >
           <FormInput label="Email address" placeholder="Enter your email" type="email" registration={register("email")} error={errors.email} />
           {/* submit button */}
           <button className="w-full  h-12 flex items-center justify-center cursor-pointer bg-linear-to-r 
@@ -78,27 +87,53 @@ const Forgot_Password = ({ }: IProps) => {
             )}
           </button>
 
-          <div className="w-full flex items-center justify-center md:gap-[3.99px]">
+          <div className="w-full flex items-center justify-center md:gap-[3.99px] mb-4">
             <a href="/login" className="text-[var(--color-primary)] text-[14px] font-medium leading-5 tracking-normal"> <span>
               <img src={backToLoginIcon} className="inline-block mr-1" />
             </span>Back to Login</a>
           </div>
-          {isSuccess && (
-            <div className="flex flex-col gap-3">
-              <SuccessAlert />
-              <ResendSection timeLeft={timeLeft}
-                canResend={canResend}
-                attempts={attempts}
-                hasReachedLimit={hasReachedLimit}
-                restartTimer={restartTimer}
-                incrementAttempts={incrementAttempts} />
-            </div>
-          )}
+          <div className="md:block hidden">
+            {isSuccess && (
+              <div className="flex flex-col gap-3">
+                <SuccessAlert />
+                <ResendSection timeLeft={timeLeft}
+                  canResend={canResend}
+                  attempts={attempts}
+                  hasReachedLimit={hasReachedLimit}
+                  restartTimer={restartTimer}
+                  incrementAttempts={incrementAttempts} />
+              </div>
+            )}
 
+          </div>
 
 
         </form>
+        <div className="md:hidden block">
+          {isSuccess && (
+            <>
+              <div className="w-full flex flex-col items-start bg-[#82F9BE33] border border-transparent text-green-700 p-4 gap-3 rounded-lg relative" >
+                <div className="flex items-start justify-center gap-3">
+                  <img src={SuccessIcon} alt="Success" className="inline-block" />
+                  <p className=" md:pr-[24.78px] text-[#005235] md:font-normal font-medium md:text-[14px] text-[12px] md:leading-[17.5px] leading-[19.5px] ">If an account exists with this email, we’ve
+                    sent a password reset link.</p>
+                </div>
+                 
+                <div className="border-t border-slate-300 flex items-center justify-between gap-3 pt-3">
+                   <h3 className="text-[11px] font-bold text-[#00523599] leading-[16.5px] tracking-[1.1px] uppercase">Didn't receive the email?</h3>
+                   <button className="text-[#003D9B] font-bold text-[11px] leading-[16.5px] tracking-[1.1px] uppercase    ">
+                     {canResend ? `Resend Email` : `Resend in ${formatTime(timeLeft)}`}
+                   </button>
 
+                </div>
+
+
+
+
+              </div></>
+          )}
+
+        </div>
 
       </div>
 
