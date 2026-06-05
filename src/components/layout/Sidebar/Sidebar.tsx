@@ -16,7 +16,7 @@ import Cookies from "js-cookie";
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [activeItem, setActiveItem] = useState("projects");
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const menuItems = [
@@ -36,7 +36,7 @@ const Sidebar = () => {
         }
 
         try {
-            setLoading(true);
+            // setLoading(true);
             await logoutUser(token);
             clearAuthStorage()
             toast.success("Logged out successfully! ")
@@ -45,10 +45,11 @@ const Sidebar = () => {
         } catch (err: any) {
             toast.error(err.message)
             console.log(err.message)
-        } finally {
-            setLoading(false);
+        } 
+        // finally {
+        //     setLoading(false);
 
-        }
+        // }
 
     }
 
