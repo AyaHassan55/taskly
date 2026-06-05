@@ -1,3 +1,4 @@
+
 const baseURL="https://yfiphsggadtumstkunju.supabase.co";
 const forgotPassword= async(email:string)=>{
 
@@ -8,7 +9,8 @@ const forgotPassword= async(email:string)=>{
                 "apikey": import.meta.env.VITE_SUPABASE_ANON_KEY,
             "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
         },
-        body:JSON.stringify({email,redirectTo: `${import.meta.env.VITE_APP_URL}/reset-password`,})
+        
+         body:JSON.stringify({email,redirectTo: `${import.meta.env.VITE_APP_URL}/reset-password`,})
         
 
     });

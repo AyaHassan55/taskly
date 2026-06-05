@@ -60,10 +60,10 @@ const Signup = ({ }: IProps) => {
 
     }
     return (
-        <div className='flex justify-start md:justify-center px-6 md:px-0 mb-20'>
-            <div className=" md:w-xl flex flex-col items-center justify-center pb-10 border border-transparent rounded-lg  md:shadow-[0px_24px_48px_0px_#041B3C0F]  p-12">
+        <div className='flex  justify-start md:justify-center md:px-0 mb-20'>
+            <div className="md:w-xl w-full flex flex-col gap-6 items-center justify-center pb-10 border border-transparent rounded-lg  md:shadow-[0px_24px_48px_0px_#041B3C0F]  md:p-12 p-6">
                 {/* header form */}
-                <header className="w-85.5 md:w-120 h-16 flex-col gap-2 pb-10 " >
+                <header className="w-full h-16 flex-col gap-2 pb-10 " >
                     <h1 className="md:text-center md:text-[30px] text-[28px] font-semibold md:leading-9 leading-10 md:tracking-[-0.75px] tracking-[-0.8px]">Create your workspace</h1>
                     <p className="w-120 h-5 md:text-center text-[14px] font-normal md:leading-5 leading-[22.75px] tracking-normal text-slate-700">
                         Join the editorial approach to task management.</p>
@@ -71,7 +71,7 @@ const Signup = ({ }: IProps) => {
                 </header>
 
                 {/* main form */}
-                <main className="w-85.5 md:w-120">
+                <main className="w-full ">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {/* name input */}
                         <FormInput
@@ -98,11 +98,11 @@ const Signup = ({ }: IProps) => {
                             error={errors.jobTitle}
                         />
                         {/* password */}
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-4 w-120 mt-3'>
+                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-4 w-full mt-3'>
                             <div className="flex flex-col gap-2 w-full md:h-23.25 pb-2 relative">
                                 <label htmlFor="password" className='text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '>Password</label>
 
-                                <input className="md:w-58 w-85.5  h-12 border border-transparent rounded-sm py-3.5 px-4 bg-(--color-surface-highest)
+                                <input className=" h-12 border border-transparent rounded-sm py-3.5 px-4 bg-(--color-surface-highest)
                         placeholder:text-[#737685] 
                         placeholder:text-[16px] 
                         placeholder:leading-[100%] 
@@ -120,7 +120,7 @@ const Signup = ({ }: IProps) => {
                                     src={eyeShow}
                                     alt="toggle password"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute md:left-50 left-70 top-1/2 -translate-y-1/2 cursor-pointer w-5 h-5"
+                                    className="absolute md:left-50 left-[90%] md:top-[50%]  top-[60%] -translate-y-1/2 cursor-pointer w-5 h-5"
 
                                 />
                                 {errors.password && <p className=" text-[#C3C6D6] text-[11px] leading-[16.5px] tracking-normal">{errors.password.message}</p>}
@@ -131,7 +131,7 @@ const Signup = ({ }: IProps) => {
                             <div className="flex flex-col gap-2  w-full md:h-23.25">
                                 <label htmlFor="confirmPassword" className='text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase '>Confirm Password</label>
 
-                                <input className="md:w-58 w-85.5 h-12 border border-transparent rounded-sm py-3.5 px-4 bg-(--color-surface-highest)
+                                <input className=" h-12 border border-transparent rounded-sm py-3.5 px-4 bg-(--color-surface-highest)
                                       placeholder:text-[#737685] 
                                         placeholder:text-[16px] 
                                         placeholder:leading-[100%] 
@@ -211,7 +211,7 @@ const Signup = ({ }: IProps) => {
                         </div>
 
                         {/* submit button */}
-                        <button className="md:w-120 w-85.5  h-12 flex items-center justify-center cursor-pointer bg-linear-to-r 
+                        <button className="w-full  h-12 flex items-center justify-center cursor-pointer bg-linear-to-r 
                         from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6
                          shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
                             {loading ? (
@@ -223,7 +223,7 @@ const Signup = ({ }: IProps) => {
                     </form>
                 </main>
                 {/* footer form */}
-                <footer className="mt-6 flex justify-center">
+                <footer className="w-full mt-6 flex justify-center">
                     <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Already have an account? <a href="/login" className="text-(--color-primary) font-semibold "> Log in</a></p>
                 </footer>
             </div>
