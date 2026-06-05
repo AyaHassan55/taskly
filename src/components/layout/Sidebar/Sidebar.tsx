@@ -8,10 +8,16 @@ import projectMemberIcon from "../../../assets/icons/Icon-project-member.svg";
 import projectDetailsIcon from "../../../assets/icons/Icon-project-detail.svg";
 import collapseIcon from "../../../assets/icons/collabse-Icon.svg";
 import logoutIcon from "../../../assets/icons/Icon-logout.svg"
-
+import logoutUser from "../../../services/auth/logout.service";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { clearAuthStorage } from "../../../utils/clear-auth";
+import Cookies from "js-cookie";
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [activeItem, setActiveItem] = useState("projects");
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const menuItems = [
         { id: "projects", label: "Projects", icon: projectIcon },
@@ -20,6 +26,31 @@ const Sidebar = () => {
         { id: "members", label: "Project Members", icon: projectMemberIcon },
         { id: "details", label: "Project Details", icon: projectDetailsIcon },
     ];
+    const handleLogout = async () => {
+        const token = Cookies.get("access_token");
+        console.log('token is',token)
+        if (!token) {
+            toast.error("No token found");
+            navigate("/login");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            await logoutUser(token);
+            clearAuthStorage()
+            toast.success("Logged out successfully! ")
+            navigate("/login");
+
+        } catch (err: any) {
+            toast.error(err.message)
+            console.log(err.message)
+        } finally {
+            setLoading(false);
+
+        }
+
+    }
 
     return (
         <aside
@@ -98,7 +129,7 @@ const Sidebar = () => {
 
                 </button>
 
-                <div
+                <div onClick={handleLogout}
                     className={`h-18 flex items-center gap-3 px-3 py-3 cursor-pointer ${collapsed ? "justify-center " : ""
                         }`}
                 >
