@@ -1,4 +1,3 @@
-
 const baseURL="https://yfiphsggadtumstkunju.supabase.co";
 const forgotPassword= async(email:string)=>{
 
