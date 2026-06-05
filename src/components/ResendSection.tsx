@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+
 import iconTimer from "../assets/icons/Icon_timer.svg"
 import { formatTime } from "../utils/format-time";
 interface IProps {
@@ -12,7 +12,7 @@ interface IProps {
 
 }
 
-const ResendSection = ({timeLeft,canResend,attempts,hasReachedLimit,restartTimer,incrementAttempts }: IProps) => {
+const ResendSection = ({timeLeft,canResend,hasReachedLimit,restartTimer,incrementAttempts }: IProps) => {
     
     const handleResend = async () => {
         if (!canResend) return;
