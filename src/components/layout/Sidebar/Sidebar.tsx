@@ -113,7 +113,7 @@ const Sidebar = () => {
                 {/* collapse */}
                 <button
                     onClick={() => setCollapsed(!collapsed)}
-                    className={`flex items-center w-full px-3 py-2.5 transition-all cursor-pointer ${collapsed ? "justify-center" : "gap-3"
+                    className={`hidden md:flex items-center w-full px-3 py-2.5 transition-all cursor-pointer ${collapsed ? "justify-center" : "gap-3"
                         }`}
                 >
                     <img
