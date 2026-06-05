@@ -1,0 +1,120 @@
+import { useState } from "react";
+
+import iconLogo from "../../../assets/icons/Icon_logo.svg";
+import projectIcon from "../../../assets/icons/Icon-project.svg";
+import projectEpicIcon from "../../../assets/icons/Icon-project-ipik.svg";
+import projectTaskIcon from "../../../assets/icons/Icon-project.-tasksvg.svg";
+import projectMemberIcon from "../../../assets/icons/Icon-project-member.svg";
+import projectDetailsIcon from "../../../assets/icons/Icon-project-detail.svg";
+import collapseIcon from "../../../assets/icons/collabse-Icon.svg";
+import logoutIcon from "../../../assets/icons/Icon-logout.svg"
+
+const Sidebar = () => {
+    const [collapsed, setCollapsed] = useState(false);
+    const [activeItem, setActiveItem] = useState("projects");
+
+    const menuItems = [
+        { id: "projects", label: "Projects", icon: projectIcon },
+        { id: "epics", label: "Project Epics", icon: projectEpicIcon },
+        { id: "tasks", label: "Project Tasks", icon: projectTaskIcon },
+        { id: "members", label: "Project Members", icon: projectMemberIcon },
+        { id: "details", label: "Project Details", icon: projectDetailsIcon },
+    ];
+
+    return (
+        <aside
+            className={`bg-[#F1F3FF] text-black flex flex-col h-screen transition-all duration-300 relative ${collapsed ? "w-20" : "w-64"
+                }`}
+        >
+            {/* heder */}
+            <div
+                className={`h-20 flex items-center  ${collapsed ? "justify-center px-0" : "px-6 gap-2"
+                    }`}
+            >
+                <img src={iconLogo} alt="Logo" />
+
+                {!collapsed && (
+                    <h1 className="font-bold text-[20px] text-[#041B3C]">
+                        TASKLY
+                    </h1>
+                )}
+            </div>
+
+            {/* items nav */}
+            <div className="flex-1 px-2 space-y-2 mt-4">
+                {menuItems.map((item) => {
+                    const isActive = activeItem === item.id;
+
+                    return (
+                        <div
+                            key={item.id}
+                            onClick={() => setActiveItem(item.id)}
+                            className={`flex items-center rounded-md cursor-pointer transition-all
+                ${collapsed
+                                    ? "justify-center px-0 py-3"
+                                    : "gap-3 px-3 py-3"
+                                }
+                ${isActive
+                                    ? "bg-white text-[#003D9B]"
+                                    : "text-[#041B3C] hover:bg-white/60"
+                                }
+              `}
+                        >
+                            <img
+                                src={item.icon}
+                                alt={item.label}
+                                className="w-5 h-5 shrink-0"
+                            />
+
+                            {!collapsed && (
+                                <span className="font-medium text-[14px]">
+                                    {item.label}
+                                </span>
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
+
+
+
+            <div className="border-t border-[#C3C6D633] mt-auto pt-6 px-2 ">
+                {/* collapse */}
+                <button
+                    onClick={() => setCollapsed(!collapsed)}
+                    className={`flex items-center w-full px-3 py-2.5 transition-all cursor-pointer ${collapsed ? "justify-center" : "gap-3"
+                        }`}
+                >
+                    <img
+                        src={collapseIcon}
+                        alt="toggle sidebar"
+                        className={`w-[11.77px] h-5 transition-transform duration-300  ${collapsed ? "rotate-180 justify-center px-0" : ""
+                            }`}
+                    />{
+                        !collapsed && (
+                            <h1 className="font-medium text-[14px] leading-5  text-center text-[#041B3C]">Collapse</h1>
+                        )
+                    }
+
+                </button>
+
+                <div
+                    className={`h-18 flex items-center gap-3 px-3 py-3 cursor-pointer ${collapsed ? "justify-center " : ""
+                        }`}
+                >
+                    <img src={logoutIcon} alt="Logout" className="w-5 h-5" />
+
+                    {!collapsed && (
+                        <h1 className="font-medium text-[14px] text-[#BA1A1A] leading-5">
+                            Logout
+                        </h1>
+                    )}
+                </div>
+
+            </div>
+
+        </aside>
+    );
+};
+
+export default Sidebar;

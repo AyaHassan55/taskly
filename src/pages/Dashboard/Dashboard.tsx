@@ -1,4 +1,5 @@
 import Navbar from "../../components/layout/Navbar/Navbar"
+import Sidebar from "../../components/layout/Sidebar/Sidebar"
 
 interface IProps {
 
@@ -8,9 +9,12 @@ interface IProps {
 
 const Dashboard=({}:IProps)=> {
   return (
-    <div>
-    <Navbar  />
-
+    <div className="flex min-h-screen">
+    
+    <Sidebar/>
+    <div className="flex-1 ">
+        <Navbar  />
+        </div>
     </div>
   )
 }
