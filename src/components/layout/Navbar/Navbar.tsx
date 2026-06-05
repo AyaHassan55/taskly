@@ -1,34 +1,21 @@
-import { useEffect, useState } from "react"
-import { getUSer } from "../../../services/user.service";
-import type { User } from "../../../types/user";
+
 import { getAvatarLetters } from "../../../utils/get-avatar-letter";
 import IconBurger from "../../../assets/icons/Icon-burger.svg"
+import { useAppSelector } from "../../../hooks/reducxHooks";
 interface NavbarProps {
 
 onMenuClick: () => void;
 }
 
 const Navbar = ({ onMenuClick}: NavbarProps) => {
-    const [user, setUser] = useState<User | null>(null);
+const user = useAppSelector(
+  (state) => state.user.user
+);
+console.log(user);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const data = await getUSer();
-                setUser(data);
-                console.log(data)
-                console.log('donreee')
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchUser()
+const state = useAppSelector((state) => state);
 
-
-    }, []);
-
-
-
+console.log("Redux State:", state);
 
     if (!user) {
         return <div>Loading...</div>;
