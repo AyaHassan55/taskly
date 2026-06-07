@@ -8,11 +8,12 @@ import FormInput from '../../components/FormInput';
 import { useState } from 'react';
 import loginUser from '../../services/auth/login.service';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { saveTokens } from '../../utils/auth-storage';
 import { useAppDispatch } from '../../hooks/reducxHooks';
 import { setUser } from '../../features/user/user.slice';
 import Spinner from '../../components/ui/Spinner';
+import { ROUTES } from '../../constants/Routes';
 interface IProps {
 
 
@@ -93,14 +94,14 @@ const Login = ({ }: IProps) => {
                 <input type="checkbox" id="remember" className="w-4 h-4 rounded-xs border border-[#C3C6D6] bg-(--color-surface-low) " {...register("rememberMe")} />
                 <label htmlFor="remember" className="text-[#434654] text-[14px] font-medium leading-5 tracking-normal">Remember Me</label>
               </div>
-              <a href="/forgot-password" className="text-[var(--color-primary)] text-[14px] font-medium leading-5 tracking-normal">Forgot password?</a>
+              <Link to={ROUTES.FORGOT_PASSWORD} className="text-(--color-primary) text-[14px] font-medium leading-5 tracking-normal">Forgot password?</Link>
             </div>
 
             {/* login button */}
             <button className="mt-7 w-full h-12 flex items-center justify-center cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
               {
                 loading ? (
-                  <Spinner/>
+                  <Spinner />
                 ) : (
                   <>
                     {/* mobile */}
@@ -125,7 +126,8 @@ const Login = ({ }: IProps) => {
         </main>
         {/* footer form */}
         <footer className="md:mt-20 flex justify-center">
-          <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Don't have an account?  <a href="/sign-up" className="text-(--color-primary) font-semibold "> Sign Up</a></p>
+          <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Don't have an account?  
+            <Link to={ROUTES.SIGNUP} className="text-(--color-primary) font-semibold "> Sign Up</Link></p>
         </footer>
 
       </div>

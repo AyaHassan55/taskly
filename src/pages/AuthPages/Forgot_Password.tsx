@@ -12,6 +12,8 @@ import forgotPassword from "../../services/auth/forgot-password.service";
 import ResendIcon from "../../assets/icons/resend-Icon.svg"
 import SuccessIcon from "../../assets/icons/Icon_success.svg"
 import { formatTime } from "../../utils/format-time";
+import  { ROUTES } from "../../constants/Routes";
+import { Link } from "react-router-dom";
 interface IProps {
 
 
@@ -88,9 +90,9 @@ const Forgot_Password = ({ }: IProps) => {
           </button>
 
           <div className="w-full flex items-center justify-center md:gap-[3.99px] mb-4">
-            <a href="/login" className="text-[var(--color-primary)] text-[14px] font-medium leading-5 tracking-normal"> <span>
+            <Link to={ROUTES.LOGIN} className="text-(--color-primary) text-[14px] font-medium leading-5 tracking-normal"> <span>
               <img src={backToLoginIcon} className="inline-block mr-1" />
-            </span>Back to Login</a>
+            </span>Back to Login</Link>
           </div>
           <div className="md:block hidden">
             {isSuccess && (
