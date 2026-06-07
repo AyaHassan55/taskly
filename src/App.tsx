@@ -1,9 +1,9 @@
 
 
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import {  Route, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
-import Projects from './pages/projects'
+
 import Signup from './pages/AuthPages/Signup'
 import Login from './pages/AuthPages/Login'
 import Forgot_Password from './pages/AuthPages/Forgot_Password'
