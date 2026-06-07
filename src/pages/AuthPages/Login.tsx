@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import visualShadow from '../../assets/images/Visual Accents (Editorial Texture).svg'
 import { loginSchema, type LoginFormData } from '../../schemas/login.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import FormInput from '../../components/FormInput';
+import FormInput from '../../components/ui/FormInput';
 import { useState } from 'react';
 import loginUser from '../../services/auth/login.service';
 import { toast } from 'react-hot-toast';
@@ -14,6 +14,7 @@ import { useAppDispatch } from '../../hooks/reducxHooks';
 import { setUser } from '../../features/user/user.slice';
 import Spinner from '../../components/ui/Spinner';
 import { ROUTES } from '../../constants/Routes';
+import AuthLayout from '../../components/layout/AuthLayout';
 interface IProps {
 
 
@@ -22,7 +23,7 @@ interface IProps {
 
 const Login = ({ }: IProps) => {
   const [loading, setLoading] = useState(false);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     register,
@@ -38,12 +39,9 @@ const Login = ({ }: IProps) => {
       setLoading(true);
       const res = await loginUser(data);
       saveTokens(res.access_token, res.refresh_token, data.rememberMe ?? false);
-      // console.log(res.access_token, res.refresh_token);
-      // console.log(res)
-      toast.success("Logged in successfully! 🎉🎉");
+      toast.success("Logged in successfully!");
       dispatch(setUser(res.user));
-      console.log("user saved", res.user);
-      Navigate(ROUTES.PROJECTS)
+      navigate(ROUTES.PROJECTS)
 
     } catch (error: any) {
       toast.error(error.message || "Something went wrong");
@@ -53,15 +51,16 @@ const Login = ({ }: IProps) => {
     }
   }
   return (
-    <div className='w-full flex-1  md:min-h-screen flex md:items-center md:justify-center relative overflow-x-hidden'>
-      <div className="hidden md:block">
+    // <div className='w-full flex-1  md:min-h-screen flex md:items-center md:justify-center relative overflow-x-hidden'>
+      <AuthLayout >
+  <div className="hidden md:block">
         <img
           src={visualShadow}
           className="absolute bottom-0 right-0 w-64 h-64 z-50 object-cover"
         />
       </div>
 
-      {/* <div className='flex justify-start md:justify-center px-6 md:px-0 mb-10 pb-10 '> */}
+     
       <div className=" md:w-xl  flex flex-col items-center justify-start md:justify-center px-6 md:px-0 pb-10 border border-transparent rounded-lg  md:shadow-[0px_24px_48px_0px_#041B3C0F]  md:p-12 ">
         {/* header form */}
         <header className="w-full max-w-[384px] h-16 flex-col gap-2 pb-10  md:mb-0 mb-6" >
@@ -131,12 +130,12 @@ const Login = ({ }: IProps) => {
         </footer>
 
       </div>
+      </AuthLayout>
+    
 
 
-      {/* </div> */}
-
-    </div >
-  )
+    
+  );
 }
 
 export default Login

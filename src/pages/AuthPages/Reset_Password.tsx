@@ -10,6 +10,7 @@ import updatePassword from "../../services/auth/reset-password.service"
 import toast from "react-hot-toast";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Spinner from "../../components/ui/Spinner"
+import AuthLayout from "../../components/layout/AuthLayout"
 
 interface IProps {
 
@@ -76,7 +77,7 @@ const Reset_Password = ({ }: IProps) => {
         }
     };
     return (
-        <div className="flex justify-center align-center min-h-screen w-full ">
+        <AuthLayout >
             <div className="md:w-lg flex flex-col  justify-start border border-transparent rounded-lg md:shadow-[0px_24px_48px_-12px_#041B3C0F] md:p-10">
                 {/* Header */}
                 <header className="flex flex-col md:justify-start justify-center align-center  mt-10 gap-1.75">
@@ -301,7 +302,7 @@ const Reset_Password = ({ }: IProps) => {
                 </form>
             </div>
 
-        </div>
+        </AuthLayout>
     )
 }
 

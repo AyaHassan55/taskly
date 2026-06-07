@@ -1,8 +1,9 @@
 import iconEmptyCheck from "../../assets/icons/icon_empty_check.svg"
 import iconSelect from "../../assets/icons/icon_right.svg"
 import eyeShow from "../../assets/icons/Icon_show_pass.svg"
+import eyeOff from "../../assets/icons/eye-off.svg"
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,9 +14,10 @@ import {
 import { useState } from "react";
 import signupUser from "../../services/auth/signup.service";
 import toast from "react-hot-toast";
-import FormInput from "../../components/FormInput";
+import FormInput from "../../components/ui/FormInput";
 import Spinner from "../../components/ui/Spinner";
 import { ROUTES } from "../../constants/Routes";
+import AuthLayout from "../../components/layout/AuthLayout";
 
 interface IProps {
 
@@ -62,10 +64,12 @@ const Signup = ({ }: IProps) => {
 
     }
     return (
-        <div className='flex  justify-start md:justify-center md:px-0 mb-20'>
-            <div className="md:w-xl w-full flex flex-col gap-6 items-center justify-center pb-10 border border-transparent rounded-lg  md:shadow-[0px_24px_48px_0px_#041B3C0F]  md:p-12 p-6">
-                {/* header form */}
-                <header className="w-full h-16 flex-col gap-2 pb-10 " >
+        
+               <AuthLayout>  
+         <div className="md:w-xl w-full flex flex-col gap-6 items-center justify-center pb-10 border border-transparent rounded-lg  md:shadow-[0px_24px_48px_0px_#041B3C0F]  md:p-12 p-6">
+          
+            {/* header form */}
+                 <header className="w-full h-16 flex-col gap-2 pb-10 " >
                     <h1 className="md:text-center md:text-[30px] text-[28px] font-semibold md:leading-9 leading-10 md:tracking-[-0.75px] tracking-[-0.8px]">Create your workspace</h1>
                     <p className="w-120 h-5 md:text-center text-[14px] font-normal md:leading-5 leading-[22.75px] tracking-normal text-slate-700">
                         Join the editorial approach to task management.</p>
@@ -226,10 +230,13 @@ const Signup = ({ }: IProps) => {
                 </main>
                 {/* footer form */}
                 <footer className="w-full mt-6 flex justify-center">
-                    <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Already have an account? <a href="/login" className="text-(--color-primary) font-semibold "> Log in</a></p>
+                    <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Already have an account? 
+                        <Link to={ROUTES.LOGIN} className="text-(--color-primary) font-semibold "> Log in</Link></p>
                 </footer>
-            </div>
-        </div>
+                  </div>
+            </AuthLayout>    
+          
+      
 
     )
 }

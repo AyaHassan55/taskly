@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormInput from "../../components/FormInput";
+import FormInput from "../../components/ui/FormInput";
 import { forgotPasswordSchema, type ForgotPasswordFormData } from "../../schemas/forgot_password.schema";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ import SuccessIcon from "../../assets/icons/Icon_success.svg"
 import { formatTime } from "../../utils/format-time";
 import  { ROUTES } from "../../constants/Routes";
 import { Link } from "react-router-dom";
+import AuthLayout from "../../components/layout/AuthLayout";
 interface IProps {
 
 
@@ -60,8 +61,9 @@ const Forgot_Password = ({ }: IProps) => {
     } finally { setLoading(false) }
   }
   return (
-    <div className="flex justify-center md:items-center  items-start min-h-screen w-full " >
-      {/* card */}
+     <AuthLayout  >
+     
+    {/* card */}
       <div className="card md:w-md flex flex-col  md:justify-start justify-center border border-transparent rounded-lg 
       md:shadow-[0px_24px_48px_-12px_#041B3C0F] p-10
       shadow-[0px_24px_48px_-12px_#041B3C0F ]  "
@@ -70,12 +72,13 @@ const Forgot_Password = ({ }: IProps) => {
           <img src={ResendIcon} alt="resend icon " />
         </div>
         {/* Header */}
+        
         <header className="flex flex-col justify-start items-center md:items-start  md:mt-10 gap-1.75">
           <h1 className="md:text-[32px] text-[24px] font-semibold md:leading-10 leading-8 md:tracking-[-0.8px] tracking-normal text-[#041B3C] md:mt-0 mt-5 ">Forgot password?</h1>
           <p className="text-[#434654] text-center md:text-start md:text-[14px] font-normal md:leading-[22.75px] leading-5 tracking-normal md:pb-[0.75px] pb-8 ">
             No worries, we'll send you reset instructions.
           </p>
-        </header>
+        </header> 
         <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col justify-start items-center gap-6 mt-6 w-full" >
           <FormInput label="Email address" placeholder="Enter your email" type="email" registration={register("email")} error={errors.email} />
           {/* submit button */}
@@ -139,7 +142,7 @@ const Forgot_Password = ({ }: IProps) => {
 
       </div>
 
-    </div>
+    </AuthLayout>
   );
 }
 
