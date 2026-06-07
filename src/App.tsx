@@ -30,7 +30,7 @@ const showHeader = authPages.includes(location.pathname)
       {showHeader && <Header />}
       <div className="flex-1">
         <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<Projects />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<Forgot_Password />} />
@@ -43,7 +43,6 @@ const showHeader = authPages.includes(location.pathname)
               </ProtectedRoute>
             }
           />
-          <Route path='/projects' element={<Projects />} />
 
         </Routes>
       </div>
