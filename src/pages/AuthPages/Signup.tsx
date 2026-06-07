@@ -15,6 +15,7 @@ import signupUser from "../../services/auth/signup.service";
 import toast from "react-hot-toast";
 import FormInput from "../../components/FormInput";
 import Spinner from "../../components/ui/Spinner";
+import { ROUTES } from "../../constants/Routes";
 
 interface IProps {
 
@@ -49,7 +50,7 @@ const Signup = ({ }: IProps) => {
             setLoading(true);
             await signupUser(data);
             toast.success("Account created successfully!");
-            navigate('/projects')
+            navigate(ROUTES.PROJECTS)
         }
         catch (error: any) {
             toast.error(error.message || "Something went wrong");

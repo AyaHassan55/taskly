@@ -53,10 +53,10 @@ const Forgot_Password = ({ }: IProps) => {
 
       setIsSuccess(true);
       restartTimer()
-      console.log(data)
+      
     } catch (error: any) {
       toast.error("Something went wrong. Please try again.");
-      console.log(error.message)
+      
     } finally { setLoading(false) }
   }
   return (

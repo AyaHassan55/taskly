@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../../components/layout/Navbar/Navbar"
 import Sidebar from "../../components/layout/Sidebar/Sidebar"
 import BottomNav from "../../components/layout/BottomNav/BottomNav";
+import { Outlet } from "react-router-dom";
 
 interface IProps {
 
@@ -33,6 +34,9 @@ const Dashboard = ({ }: IProps) => {
 
                     </div>
                 )}
+                <main className="p-6">
+                    <Outlet />
+                </main>
             </div>
             {
                 !openMenu && <BottomNav />

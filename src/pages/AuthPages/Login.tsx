@@ -43,7 +43,7 @@ const Login = ({ }: IProps) => {
       toast.success("Logged in successfully! 🎉🎉");
       dispatch(setUser(res.user));
       console.log("user saved", res.user);
-      Navigate("/dashboard")
+      Navigate(ROUTES.PROJECTS)
 
     } catch (error: any) {
       toast.error(error.message || "Something went wrong");

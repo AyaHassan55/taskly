@@ -10,46 +10,44 @@ import collapseIcon from "../../../assets/icons/collabse-Icon.svg";
 import logoutIcon from "../../../assets/icons/Icon-logout.svg"
 import logoutUser from "../../../services/auth/logout.service";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { clearAuthStorage } from "../../../utils/clear-auth";
 import Cookies from "js-cookie";
+import { ROUTES } from "../../../constants/Routes";
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const [activeItem, setActiveItem] = useState("projects");
-    // const [loading, setLoading] = useState(false);
+    // const [activeItem, setActiveItem] = useState("projects");
+    const location = useLocation()
     const navigate = useNavigate();
 
     const menuItems = [
-        { id: "projects", label: "Projects", icon: projectIcon },
-        { id: "epics", label: "Project Epics", icon: projectEpicIcon },
-        { id: "tasks", label: "Project Tasks", icon: projectTaskIcon },
-        { id: "members", label: "Project Members", icon: projectMemberIcon },
-        { id: "details", label: "Project Details", icon: projectDetailsIcon },
+        { id: "projects", label: "Projects", icon: projectIcon ,path:ROUTES.PROJECTS},
+        { id: "epics", label: "Project Epics", icon: projectEpicIcon ,path:ROUTES.PROJECTS_EPICS},
+        { id: "tasks", label: "Project Tasks", icon: projectTaskIcon,path:ROUTES.PROJECTS_TASKS },
+        { id: "members", label: "Project Members", icon: projectMemberIcon,path:ROUTES.PROJECTS_MEMBERS },
+        { id: "details", label: "Project Details", icon: projectDetailsIcon,path:ROUTES.PROJECTS_DETAILS },
     ];
     const handleLogout = async () => {
         const token = Cookies.get("access_token");
-        console.log('token is',token)
+        
         if (!token) {
             toast.error("No token found");
-            navigate("/login");
+            navigate(ROUTES.LOGIN);
             return;
         }
 
         try {
-            // setLoading(true);
+            
             await logoutUser(token);
             clearAuthStorage()
             toast.success("Logged out successfully! ")
-            navigate("/login");
+            navigate(ROUTES.LOGIN);
 
         } catch (err: any) {
             toast.error(err.message)
-            console.log(err.message)
+           
         } 
-        // finally {
-        //     setLoading(false);
-
-        // }
+        
 
     }
 
@@ -58,7 +56,7 @@ const Sidebar = () => {
             className={`bg-[#F1F3FF] text-black flex flex-col h-screen transition-all duration-300 relative ${collapsed ? "w-20" : "w-64"
                 }`}
         >
-            {/* heder */}
+            {/* header */}
             <div
                 className={`h-20 flex items-center  ${collapsed ? "justify-center px-0" : "px-6 gap-2"
                     }`}
@@ -75,12 +73,12 @@ const Sidebar = () => {
             {/* items nav */}
             <div className="flex-1 px-2 space-y-2 mt-4">
                 {menuItems.map((item) => {
-                    const isActive = activeItem === item.id;
+                    const isActive = location.pathname === item.path;
 
                     return (
                         <div
                             key={item.id}
-                            onClick={() => setActiveItem(item.id)}
+                            onClick={() =>  navigate(item.path)}
                             className={`flex items-center rounded-md cursor-pointer transition-all
                 ${collapsed
                                     ? "justify-center px-0 py-3"
