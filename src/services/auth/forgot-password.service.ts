@@ -14,6 +14,7 @@ const forgotPassword= async(email:string)=>{
         
 
     });
+    
     if (!res.ok) {
     const error = await res.json();
     throw new Error(error?.message || "Something went wrong");

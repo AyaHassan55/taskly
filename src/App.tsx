@@ -30,7 +30,10 @@ const showHeader = authPages.includes(location.pathname)
       {showHeader && <Header />}
       <div className="flex-1">
         <Routes>
-          <Route path="/" element={<Projects />} />
+          
+          <Route path="/" element={ window.location.hash.includes("access_token")
+      ? <Login />
+      : <Navigate to="/login" replace />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<Forgot_Password />} />
