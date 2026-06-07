@@ -1,22 +1,16 @@
+interface IProps {
 
 
-const Projects = () => {
-  
+
+}
+
+const Project=({}:IProps)=> {
   return (
-    <div >
-   
-        
-        <h1 >
-          Welcome to Project Page</h1>
-        
+    <div>
+      <h1>projects</h1>
 
-        
-
-        
-
-     
     </div>
-  );
-};
+  )
+}
 
-export default Projects;
+export default Project
