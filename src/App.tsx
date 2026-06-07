@@ -21,7 +21,7 @@ function App() {
     "/reset-password",
   ];
 
-const showHeader = authPages.includes(location.pathname)
+const showHeader = authPages.includes(location.pathname) || '/';
   return (
 
 
@@ -31,9 +31,7 @@ const showHeader = authPages.includes(location.pathname)
       <div className="flex-1">
         <Routes>
           
-          <Route path="/" element={ window.location.hash.includes("access_token")
-      ? <Login />
-      : <Navigate to="/login" replace />} />
+          <Route path="/" element={ <Login />}/>
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<Forgot_Password />} />
