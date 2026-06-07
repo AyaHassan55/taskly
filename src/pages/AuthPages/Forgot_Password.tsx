@@ -14,7 +14,6 @@ import SuccessIcon from "../../assets/icons/Icon_success.svg"
 import { formatTime } from "../../utils/format-time";
 import  { ROUTES } from "../../constants/Routes";
 import { Link } from "react-router-dom";
-import AuthLayout from "../../components/layout/AuthLayout";
 interface IProps {
 
 
