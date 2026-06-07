@@ -4,7 +4,7 @@ interface IProps {
 
 }
 
-const Project=({}:IProps)=> {
+const Projects=({}:IProps)=> {
   return (
     <div>
       <h1>projects</h1>
@@ -13,4 +13,4 @@ const Project=({}:IProps)=> {
   )
 }
 
-export default Project
+export default Projects
