@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { saveTokens } from '../../utils/auth-storage';
 import { useAppDispatch } from '../../hooks/reducxHooks';
 import { setUser } from '../../features/user/user.slice';
+import Spinner from '../../components/ui/Spinner';
 interface IProps {
 
 
@@ -99,7 +100,7 @@ const Login = ({ }: IProps) => {
             <button className="mt-7 w-full h-12 flex items-center justify-center cursor-pointer bg-linear-to-r from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
               {
                 loading ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin center"></div>
+                  <Spinner/>
                 ) : (
                   <>
                     {/* mobile */}

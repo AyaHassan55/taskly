@@ -9,6 +9,7 @@ import { resetPasswordSchema, type ResetPasswordFormData } from "../../schemas/r
 import updatePassword from "../../services/auth/reset-password.service"
 import toast from "react-hot-toast";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Spinner from "../../components/ui/Spinner"
 
 interface IProps {
 
@@ -287,7 +288,7 @@ const Reset_Password = ({ }: IProps) => {
                         from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6
                          shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
                             {loading ? (
-                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin center"></div>
+                                <Spinner />
                             ) : (
                                 "Update Password"
                             )}

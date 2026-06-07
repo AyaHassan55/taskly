@@ -14,6 +14,7 @@ import { useState } from "react";
 import signupUser from "../../services/auth/signup.service";
 import toast from "react-hot-toast";
 import FormInput from "../../components/FormInput";
+import Spinner from "../../components/ui/Spinner";
 
 interface IProps {
 
@@ -47,8 +48,8 @@ const Signup = ({ }: IProps) => {
         try {
             setLoading(true);
             await signupUser(data);
-            toast.success("Account created successfully! 🎉🎉");
-            navigate('/')
+            toast.success("Account created successfully!");
+            navigate('/projects')
         }
         catch (error: any) {
             toast.error(error.message || "Something went wrong");
@@ -215,7 +216,7 @@ const Signup = ({ }: IProps) => {
                         from-[#0052CC] to-[#003D9B] rounded-sm text-white font-bold text-[16px] leading-[100%] tracking-normal mt-6
                          shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" type="submit" disabled={loading}>
                             {loading ? (
-                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin center"></div>
+                                <Spinner />
                             ) : (
                                 "Create Account"
                             )}
