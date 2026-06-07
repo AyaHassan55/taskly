@@ -123,7 +123,7 @@ const Signup = ({ }: IProps) => {
 
                                 />
                                 <img
-                                    src={eyeShow}
+                                    src={showPassword?eyeShow:eyeOff}
                                     alt="toggle password"
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute md:left-50 left-[90%] md:top-[50%]  top-[60%] -translate-y-1/2 cursor-pointer w-5 h-5"

@@ -15,6 +15,8 @@ import { setUser } from '../../features/user/user.slice';
 import Spinner from '../../components/ui/Spinner';
 import { ROUTES } from '../../constants/Routes';
 import AuthLayout from '../../components/layout/AuthLayout';
+import eyeShow from "../../assets/icons/Icon_show_pass.svg"
+import eyeOff from "../../assets/icons/eye-off.svg"
 interface IProps {
 
 
@@ -23,6 +25,7 @@ interface IProps {
 
 const Login = ({ }: IProps) => {
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
@@ -52,15 +55,15 @@ const Login = ({ }: IProps) => {
   }
   return (
     // <div className='w-full flex-1  md:min-h-screen flex md:items-center md:justify-center relative overflow-x-hidden'>
-      <AuthLayout >
-  <div className="hidden md:block">
+    <AuthLayout >
+      <div className="hidden md:block">
         <img
           src={visualShadow}
           className="absolute bottom-0 right-0 w-64 h-64 z-50 object-cover"
         />
       </div>
 
-     
+
       <div className=" md:w-xl  flex flex-col items-center justify-start md:justify-center px-6 md:px-0 pb-10 border border-transparent rounded-lg  md:shadow-[0px_24px_48px_0px_#041B3C0F]  md:p-12 ">
         {/* header form */}
         <header className="w-full max-w-[384px] h-16 flex-col gap-2 pb-10  md:mb-0 mb-6" >
@@ -81,10 +84,48 @@ const Login = ({ }: IProps) => {
             />
 
             {/* password input */}
-            <FormInput
-              label="Password" placeholder="Enter your password" type="password" registration={register("password")} error={errors.password}
-            />
+            <div className="flex flex-col gap-2 w-full mt-4 relative">
 
+              <label
+                htmlFor="password"
+                className="text-slate-700 font-bold text-[11px] uppercase tracking-[0.55px]"
+              >
+                New Password
+              </label>
+
+              <div className="relative w-full">
+                <input
+                  className="
+        w-full h-12
+        border border-transparent rounded-sm
+        py-3.5 px-4 pr-10
+        bg-(--color-surface-highest)
+        placeholder:text-[#737685]
+        placeholder:text-[16px]
+        placeholder:tracking-normal
+      "
+                  placeholder="Password"
+                  type={showPassword ? "text" : "password"}
+                  {...register("password")}
+                />
+
+                <img
+                  src={showPassword ? eyeShow : eyeOff}
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="
+        absolute right-3 top-1/2 -translate-y-1/2
+        w-5 h-5 cursor-pointer
+      "
+                  alt="toggle password"
+                />
+              </div>
+
+              {errors.password && (
+                <p className="text-[#C3C6D6] text-[11px]">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
 
 
             {/* remember me and forgot password */}
@@ -125,16 +166,16 @@ const Login = ({ }: IProps) => {
         </main>
         {/* footer form */}
         <footer className="md:mt-20 flex justify-center">
-          <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Don't have an account?  
+          <p className="flex items-center gap-1 text-center text-[14px] font-normal leading-5 tracking-normal text-slate-700 ">Don't have an account?
             <Link to={ROUTES.SIGNUP} className="text-(--color-primary) font-semibold "> Sign Up</Link></p>
         </footer>
 
       </div>
-      </AuthLayout>
-    
+    </AuthLayout>
 
 
-    
+
+
   );
 }
 

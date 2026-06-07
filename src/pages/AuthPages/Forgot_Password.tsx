@@ -61,7 +61,7 @@ const Forgot_Password = ({ }: IProps) => {
     } finally { setLoading(false) }
   }
   return (
-     <AuthLayout  >
+     <div className="min-h-screen flex items-center justify-center"  >
      
     {/* card */}
       <div className="card md:w-md flex flex-col  md:justify-start justify-center border border-transparent rounded-lg 
@@ -142,7 +142,7 @@ const Forgot_Password = ({ }: IProps) => {
 
       </div>
 
-    </AuthLayout>
+    </div >
   );
 }
 
