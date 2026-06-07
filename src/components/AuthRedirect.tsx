@@ -1,34 +1,37 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
-interface IProps {
+export default function RecoveryHandler() {
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    
+    const hash = window.location.hash?.substring(1);
+    const search = window.location.search;
 
+    const hashParams = new URLSearchParams(hash);
+    const searchParams = new URLSearchParams(search);
 
-}
-
-const AuthRedirect = ({ }: IProps) => {
-    const navigate = useNavigate();
-    useEffect(() => {
-        const hash = window.location.hash.replace('#', "")
-        const params = new URLSearchParams(hash)
-        const type = params.get("type");
-        const accessToken = params.get("access_token");
-
-        if (type === "recovery" && accessToken) {
-
-            navigate(
-                `/reset-password?access_token=${accessToken}`,
-                { replace: true }
-            );
-        }
-        console.log(window.location.href);
-console.log(hash);
-console.log(type);
-console.log(accessToken);
-    }, [navigate]);
    
-    return null;
-}
+    const type =hashParams.get("type") || searchParams.get("type");
 
-export default AuthRedirect
+    const accessToken =hashParams.get("access_token") || searchParams.get("access_token");
+
+    if (type === "recovery" && accessToken) {
+    
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname
+      );
+
+     
+      navigate(
+        `/reset-password?access_token=${accessToken}`,
+        { replace: true }
+      );
+    }
+  }, [navigate]);
+
+  return null;
+}
