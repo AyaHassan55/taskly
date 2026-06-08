@@ -13,14 +13,14 @@ import { NAVIGATION_ITEMS } from "../../../constants/Navigation";
 
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
-    
+
     const location = useLocation()
     const navigate = useNavigate();
 
-   
+
     const handleLogout = async () => {
         const token = Cookies.get("access_token");
-        
+
         if (!token) {
             toast.error("No token found");
             navigate(ROUTES.LOGIN);
@@ -28,7 +28,7 @@ const Sidebar = () => {
         }
 
         try {
-            
+
             await logoutUser(token);
             clearAuthStorage()
             toast.success("Logged out successfully! ")
@@ -36,9 +36,9 @@ const Sidebar = () => {
 
         } catch (err: any) {
             toast.error(err.message)
-           
-        } 
-        
+
+        }
+
 
     }
 
@@ -65,26 +65,26 @@ const Sidebar = () => {
             <div className="flex-1 px-2 space-y-2 mt-4">
                 {NAVIGATION_ITEMS.map((item) => {
                     const isActive = location.pathname === item.path;
+                    const Icon = item.icon;
 
                     return (
                         <div
                             key={item.id}
-                            onClick={() =>  navigate(item.path)}
-                            className={`flex items-center rounded-md cursor-pointer transition-all
+                            onClick={() => navigate(item.path)}
+                            className={`flex items-center rounded-md cursor-pointer transition-all 
                 ${collapsed
                                     ? "justify-center px-0 py-3"
                                     : "gap-3 px-3 py-3"
                                 }
                 ${isActive
-                                    ? "bg-white text-[#003D9B]"
+                                    ? "bg-white text-[#003D9B] "
                                     : "text-[#041B3C] hover:bg-white/60"
                                 }
               `}
                         >
-                            <img
-                                src={item.icon}
-                                alt={item.label}
-                                className="w-5 h-5 shrink-0"
+                            <Icon
+                                className={`w-5 h-5 ${isActive ? "text-[#003D9B]" : "text-[#041B3C] "
+                                    }`}
                             />
 
                             {!collapsed && (

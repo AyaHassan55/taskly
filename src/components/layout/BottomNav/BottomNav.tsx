@@ -11,13 +11,18 @@ const BottomNav = () => {
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E5E7EB] flex justify-around py-2 md:hidden z-40">
       {NAVIGATION_ITEMS.map((item) => {
         const isActive = location.pathname === item.path;
+         const Icon = item.icon;
         return (
           <button
             key={item.label}
             onClick={() => navigate(item.path)}
             className="flex flex-col items-center gap-1"
           >
-            <img src={item.icon} alt={item.label} className={`w-5 h-5 ${isActive ? "opacity-100" : "opacity-40"}`} />
+            <Icon
+                                className={`w-5 h-5 ${isActive ? "text-[#003D9B]" : "text-[#041B3C] hover:text-[#003D9B]"
+                                    }`}
+                            />
+
 
             <span className={`text-[10px] leading-3.75 ${isActive ? "text-[#0052CC] font-semibold" : "text-[#041B3CB2] font-normal"} `}>
               {item.label}

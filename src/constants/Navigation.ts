@@ -1,8 +1,8 @@
-import projectIcon from "../assets/icons/Icon-project.svg";
-import projectEpicIcon from "../assets/icons/Icon-project-ipik.svg";
-import projectTaskIcon from "../assets/icons/Icon-project.-tasksvg.svg";
-import projectMemberIcon from "../assets/icons/Icon-project-member.svg";
-import projectDetailsIcon from "../assets/icons/Icon-project-detail.svg";
+import projectIcon from "../assets/icons/Icon-project.svg?react";
+import projectEpicIcon from "../assets/icons/Icon-project-ipik.svg?react";
+import projectTaskIcon from "../assets/icons/Icon-project.-tasksvg.svg?react";
+import projectMemberIcon from "../assets/icons/Icon-project-member.svg?react";
+import projectDetailsIcon from "../assets/icons/Icon-project-detail.svg?react";
 import { ROUTES } from "./Routes";
 
 export const NAVIGATION_ITEMS = [
