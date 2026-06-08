@@ -35,7 +35,7 @@ const AddProject = ({ }: IProps) => {
     <div className=" ">
 
       {/* creadcrumps and header  */}
-      <div className="flex items-end justify-between ">
+      <div className="hidden md:flex items-end justify-between ">
         {/* creadcrumbs */}
         <div className="">
           <div className="flex items-center gap-4 mb-2 ">
@@ -73,17 +73,17 @@ const AddProject = ({ }: IProps) => {
       </div>
 
       {/* form for add project */}
-      <div className="mt-10  px-4 md:min-h-screen flex items-start justify-center">
-        <div className="w-full min-h-screen bg-[#FFFFFF] shadow_[0_1px_2px_0_#0000000D] border border-transparent rounded-lg  max-w-xl flex flex-col items-start justify-start ">
+      <div className="md:mt-10 w-full md:px-4 md:min-h-screen flex items-start justify-center">
+        <div className="w-full min-h-screen md:bg-[#FFFFFF] md:shadow_[0_1px_2px_0_#0000000D] md:border md:border-transparent md:rounded-lg  md:max-w-xl flex flex-col items-start justify-start ">
           {/* ----------header form------------ */}
           <header className="flex border-b border-[#F1F3FF] px:[32px] p-8 ">
-            <div className="flex items-center justify-center gap-4">
+            <div className="md:flex md:items-center md:justify-center md:gap-4">
               {/* icon */}
-              <div className="w-11.5 h-11 items-center bg-[#0052CC1A] border border-transparent rounded-sm sm p-3">
+              <div className="hidden md:flex w-11.5 h-11 items-center bg-[#0052CC1A] border border-transparent rounded-sm sm p-3">
                 <InitProjectIcon className="w-5.5 h-5 " />
               </div>
               {/* titles */}
-              <div className="title flex flex-col">
+              <div className=" flex flex-col">
 
 
                 <h1 className="text-[#041B3C] font-semibold text-[24px] leading-8 ">Initialize New Project</h1>
@@ -178,9 +178,9 @@ const AddProject = ({ }: IProps) => {
 
             </div>
             {/* Action  */}
-            <div className="flex justify-between items-center mt-auto pt-4">
-              <Link to={ROUTES.PROJECTS} className="text-[14px] font-bold leading-5 text-[#4F5F7B] " >Back</Link>
-              <button className="flex justify-center gap-2 rounded-xs items-center md:py-3 md:px-6
+            <div className="flex md:flex-row flex-col flex-col-reverse justify-between items-center mt-auto pt-4 gap-4 md:gap-1 ">
+              <Link to={ROUTES.PROJECTS} className="md:text-[14px] text-[16px] md:font-bold font-medium md:leading-5 leading-6 md:text-[#4F5F7B] text-[#003D9B] " >Back</Link>
+              <button className="flex justify-center gap-2 md:rounded-xs rounded-lg w-full md:w-auto items-center md:py-3 py-4 md:px-6
                         shadow-[0px_4px_6px_-4px_#003D9B33] 
                         bg-linear-to-br from-[#003D9B] to-[#0052CC]  cursor-pointer">
 
@@ -194,8 +194,8 @@ const AddProject = ({ }: IProps) => {
             </div>
           </form>
          {/* ----------footer section---------- */}
-         <div className="flex items-start  gap-3 p-6 bg-[#F1F3FF]">
-          <IconTips className="w-[11.25px] h-3.75 " />
+         <div className="flex items-start  md:flex-row flex-col  gap-3 p-6 bg-[#F1F3FF] mb-22 mt-7 md:mt-0 md:mb-0 ">
+          <IconTips className= "hidden md:block w-[11.25px] h-3.75 " />
           <p className="font-bold text-xs leading-[19.5px] text-[#4F5F7B]">Pro Tip: 
             <span className="font-normal text-xs leading-[100%] text-[#4F5F7B]" > You can invite project members and assign epics immediately after the initial creation process.</span>
           </p>

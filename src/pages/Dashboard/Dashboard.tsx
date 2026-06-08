@@ -35,8 +35,8 @@ const Dashboard = ({ }: IProps) => {
 
                     </div>
                 )}
-                <main className={`flex-1 transition-all duration-300 p-6 ${
-          collapsed ? "ml-20" : "ml-64"
+                <main className={`flex-1 transition-all duration-300 md:p-6 ${
+          collapsed ? "md:ml-20" : "md:ml-64"
         }`}>
                     <Outlet />
                 </main>
