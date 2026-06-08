@@ -10,4 +10,5 @@ export const ROUTES = {
   PROJECTS_EPICS:"/projects-epics",
   PROJECTS_MEMBERS:"/projects-members",
   PROJECTS_TASKS:"/project-tasks",
+  ADD_PROJECT:"/project/add"
 };

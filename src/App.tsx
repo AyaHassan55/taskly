@@ -15,6 +15,7 @@ import ProjectMembers from './pages/Dashboard/ProjectMembers'
 import ProjectTasks from './pages/Dashboard/ProjectTasks'
 import ProjectEpics from './pages/Dashboard/ProjectEpics'
 import Projects from './pages/Dashboard/Projects'
+import AddProject from './pages/Dashboard/AddProject'
 
 
 function App() {
@@ -49,7 +50,11 @@ function App() {
             }
           >
             
-            <Route path={ROUTES.PROJECTS} element={<Projects />} />
+            <Route path={ROUTES.PROJECTS} element={<Projects />}>
+              
+            
+            </Route>
+            <Route path={ROUTES.ADD_PROJECT} element ={<AddProject />} />
             <Route path={ROUTES.PROJECTS_EPICS} element={<ProjectEpics />} />
             <Route path={ROUTES.PROJECTS_TASKS} element={<ProjectTasks />} />
             <Route path={ROUTES.PROJECTS_MEMBERS} element={<ProjectMembers />} />
