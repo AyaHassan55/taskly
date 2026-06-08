@@ -23,42 +23,42 @@ const Projects=({}:IProps)=> {
   
   const navigate=useNavigate()
   
-  useEffect(()=>{
-    const getProjectList = async()=>{
-    try{
-      const token=Cookies.get("access_token");
-      if(!token){
-        navigate(ROUTES.LOGIN)
-        return
-      }
-      setLoading(true)
-      const res = await getProjects(token)
-      setProjects(res)
+  // useEffect(()=>{
+  //   const getProjectList = async()=>{
+  //   try{
+  //     const token=Cookies.get("access_token");
+  //     if(!token){
+  //       navigate(ROUTES.LOGIN)
+  //       return
+  //     }
+  //     setLoading(true)
+  //     const res = await getProjects(token)
+  //     setProjects(res)
 
-    }catch(err:any){
-     if (err.status === 401) {
-        navigate(ROUTES.LOGIN)
-        return;
-      }
+  //   }catch(err:any){
+  //    if (err.status === 401) {
+  //       navigate(ROUTES.LOGIN)
+  //       return;
+  //     }
 
-      setError(true);
-    }finally{
-       setLoading(false)
-    }
-  }
-  getProjectList()
+  //     setError(true);
+  //   }finally{
+  //      setLoading(false)
+  //   }
+  // }
+  // getProjectList()
    
-  },[navigate])
+  // },[navigate])
       if(loading){
         return <LoadingProject />
        
       }
-      if(error){
-        return <ErrorProject />
-      }
-      if (!loading && projects.length === 0){
-        return <EmptyProject />
-      }
+      // if(error){
+      //   return <ErrorProject />
+      // }
+      // if (!loading && projects.length === 0){
+      //   return <EmptyProject />
+      // }
       return (
     <div className="">
      
