@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ROUTES } from "../../constants/Routes"
 import ArrowRight from "../../assets/icons/Icon_rarrow.svg?react"
 import InviteMember from "../../assets/icons/Icon-project-member.svg?react"
@@ -8,7 +8,11 @@ import IconTips from "../../assets/icons/Icon-tip.svg?react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { addProjectctSchema, type addProjectFormData } from "../../schemas/add_project.schema"
 import { useForm } from "react-hook-form"
-
+import Cookies from "js-cookie";
+import toast from "react-hot-toast"
+import addProjectService from "../../services/projects/add-project.service"
+import { useState } from "react"
+import  Spinner from "../../components/ui/Spinner"
 
 
 interface IProps {
@@ -18,6 +22,8 @@ interface IProps {
 }
 
 const AddProject = ({ }: IProps) => {
+  const navigate=useNavigate()
+  const [loading,setLoading]=useState(false)
 
   const { register,
     handleSubmit,
@@ -27,9 +33,34 @@ const AddProject = ({ }: IProps) => {
     resolver: zodResolver(addProjectctSchema),
     mode: 'onChange',
   });
-  const onSubmit = (data: addProjectFormData) => {
-    console.log(data);
-  };
+  
+
+  const handleAddProject = async (data:addProjectFormData) => {
+        const token = Cookies.get("access_token");
+
+        if (!token) {
+            toast.error("No token found");
+            navigate(ROUTES.LOGIN);
+            return;
+        }
+
+        try {
+
+            await addProjectService(token,data);
+            console.log('donnnnne')
+            setLoading(true)
+            toast.success("Project created successfully ")
+            navigate(ROUTES.PROJECTS);
+
+        } catch (err: any) {
+            toast.error("Faild to create projects: ",err.message)
+
+        }finally{
+          setLoading(false)
+        }
+
+
+    }
   return (
 
     <div className=" ">
@@ -96,7 +127,7 @@ const AddProject = ({ }: IProps) => {
           {/*---------- main form------------- */}
 
          
-           <form className="w-full min-h-121.75 flex  flex-col p-8 " onSubmit={handleSubmit(onSubmit)}>
+           <form className="w-full min-h-121.75 flex  flex-col p-8 " onSubmit={handleSubmit(handleAddProject)} >
             {/* project title input */}
             <div className="flex  flex-col gap-2 w-full mt-3">
               <label className="text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase">
@@ -144,7 +175,7 @@ const AddProject = ({ }: IProps) => {
               </div>
 
               {/* 2----------- */}
-              <textarea
+              <textarea {...register("description")}
                 placeholder="Provide a high-level overview of the project's architectural objectives and key milestones..."
                 className={`
                      w-full min-h-30 bg-[#D7E2FF] border-2
@@ -180,14 +211,15 @@ const AddProject = ({ }: IProps) => {
             {/* Action  */}
             <div className="flex md:flex-row flex-col flex-col-reverse justify-between items-center mt-auto pt-4 gap-4 md:gap-1 ">
               <Link to={ROUTES.PROJECTS} className="md:text-[14px] text-[16px] md:font-bold font-medium md:leading-5 leading-6 md:text-[#4F5F7B] text-[#003D9B] " >Back</Link>
-              <button className="flex justify-center gap-2 md:rounded-xs rounded-lg w-full md:w-auto items-center md:py-3 py-4 md:px-6
+              <button type="submit"
+              className="flex justify-center gap-2 md:rounded-xs rounded-lg w-full md:w-auto items-center md:py-3 py-4 md:px-6
                         shadow-[0px_4px_6px_-4px_#003D9B33] 
                         bg-linear-to-br from-[#003D9B] to-[#0052CC]  cursor-pointer">
 
 
-                <span className="text-sm font-bold  text-[#FFFFFF] leading-5  ">
+                {loading ?<Spinner /> :<span className="text-sm font-bold  text-[#FFFFFF] leading-5  ">
                   Create project
-                </span>
+                </span>}
               </button>
 
 
