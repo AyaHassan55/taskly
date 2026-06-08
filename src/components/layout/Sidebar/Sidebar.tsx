@@ -17,7 +17,6 @@ const Sidebar = () => {
     const location = useLocation()
     const navigate = useNavigate();
 
-
     const handleLogout = async () => {
         const token = Cookies.get("access_token");
 
@@ -42,6 +41,7 @@ const Sidebar = () => {
 
     }
 
+
     return (
         <aside
             className={`bg-[#F1F3FF] text-black flex flex-col h-screen transition-all duration-300 relative ${collapsed ? "w-20" : "w-64"
@@ -64,7 +64,11 @@ const Sidebar = () => {
             {/* items nav */}
             <div className="flex-1 px-2 space-y-2 mt-4">
                 {NAVIGATION_ITEMS.map((item) => {
-                    const isActive = location.pathname === item.path;
+                    const active = item.activePaths.some(
+                        (route) =>
+                            location.pathname === route ||
+                            location.pathname.startsWith(`${route}/`)
+                    );
                     const Icon = item.icon;
 
                     return (
@@ -76,14 +80,14 @@ const Sidebar = () => {
                                     ? "justify-center px-0 py-3"
                                     : "gap-3 px-3 py-3"
                                 }
-                ${isActive
+                ${active
                                     ? "bg-white text-[#003D9B] "
                                     : "text-[#041B3C] hover:bg-white/60"
                                 }
               `}
                         >
                             <Icon
-                                className={`w-5 h-5 ${isActive ? "text-[#003D9B]" : "text-[#041B3C] "
+                                className={`w-5 h-5 ${active ? "text-[#003D9B]" : "text-[#041B3C] "
                                     }`}
                             />
 

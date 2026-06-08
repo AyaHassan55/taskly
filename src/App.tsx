@@ -27,7 +27,7 @@ function App() {
     "/reset-password",
   ];
 
-  const showHeader = authPages.includes(location.pathname) ;
+  const showHeader = authPages.includes(location.pathname);
   return (
 
 
@@ -49,12 +49,13 @@ function App() {
               </ProtectedRoute>
             }
           >
-            
-            <Route path={ROUTES.PROJECTS} element={<Projects />}>
-              
-            
-            </Route>
-            <Route path={ROUTES.ADD_PROJECT} element ={<AddProject />} />
+{/* 
+            <Route path="/project" element={<Projects />} />
+            <Route path="/project/add" element={<AddProject />} /> */}
+            <Route path="/project">
+  <Route index element={<Projects />} />
+  <Route path="add" element={<AddProject />} />
+</Route>
             <Route path={ROUTES.PROJECTS_EPICS} element={<ProjectEpics />} />
             <Route path={ROUTES.PROJECTS_TASKS} element={<ProjectTasks />} />
             <Route path={ROUTES.PROJECTS_MEMBERS} element={<ProjectMembers />} />
