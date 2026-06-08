@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 
 import iconLogo from "../../../assets/icons/Icon_logo.svg";
 import collapseIcon from "../../../assets/icons/collabse-Icon.svg";
@@ -10,9 +10,15 @@ import { clearAuthStorage } from "../../../utils/clear-auth";
 import Cookies from "js-cookie";
 import { ROUTES } from "../../../constants/Routes";
 import { NAVIGATION_ITEMS } from "../../../constants/Navigation";
+interface IProps {
+collapsed:boolean,
+setCollapsed:React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const Sidebar = () => {
-    const [collapsed, setCollapsed] = useState(false);
+
+
+const Sidebar = ({collapsed,setCollapsed}:IProps) => {
+    
 
     const location = useLocation()
     const navigate = useNavigate();
@@ -44,7 +50,9 @@ const Sidebar = () => {
 
     return (
         <aside
-            className={`bg-[#F1F3FF] text-black flex flex-col h-screen transition-all duration-300 relative ${collapsed ? "w-20" : "w-64"
+            className={`bg-[#F1F3FF] text-black flex flex-col     fixed left-0 top-0
+    h-screen
+ transition-all duration-300  ${collapsed ? "w-20" : "w-64"
                 }`}
         >
             {/* header */}

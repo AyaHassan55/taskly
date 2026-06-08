@@ -12,11 +12,12 @@ interface IProps {
 
 const Dashboard = ({ }: IProps) => {
     const [openMenu, setOpenMenu] = useState(false);
+    const [collapsed, setCollapsed] = useState(false);
     return (
         <div className="flex min-h-screen">
 
             <div className="hidden md:block">
-                <Sidebar />
+                <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
             </div>
             <div className="flex-1 ">
                 <Navbar onMenuClick={() => setOpenMenu(true)} />
@@ -29,12 +30,14 @@ const Dashboard = ({ }: IProps) => {
                         />
 
                         <div className="absolute left-0 top-0 h-full w-64 bg-[#F1F3FF]">
-                            <Sidebar />
+                            <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
                         </div>
 
                     </div>
                 )}
-                <main className="p-6">
+                <main className={`flex-1 transition-all duration-300 p-6 ${
+          collapsed ? "ml-20" : "ml-64"
+        }`}>
                     <Outlet />
                 </main>
             </div>
