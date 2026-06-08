@@ -13,19 +13,12 @@ import toast from "react-hot-toast"
 import addProjectService from "../../services/projects/add-project.service"
 import { useState } from "react"
 import  Spinner from "../../components/ui/Spinner"
-
-
-interface IProps {
-
-
-
-}
-
-const AddProject = ({ }: IProps) => {
+import { inputClassProjects } from "../../constants/InputClassStyle.ts"
+const AddProject = () => {
   const navigate=useNavigate()
   const [loading,setLoading]=useState(false)
 
-  const { register,
+  const { register,watch,
     handleSubmit,
     formState: { errors },
 
@@ -33,7 +26,7 @@ const AddProject = ({ }: IProps) => {
     resolver: zodResolver(addProjectctSchema),
     mode: 'onChange',
   });
-  
+  const description = watch("description") || "";
 
   const handleAddProject = async (data:addProjectFormData) => {
         const token = Cookies.get("access_token");
@@ -45,15 +38,15 @@ const AddProject = ({ }: IProps) => {
         }
 
         try {
+            setLoading(true)
 
             await addProjectService(token,data);
             console.log('donnnnne')
-            setLoading(true)
             toast.success("Project created successfully ")
             navigate(ROUTES.PROJECTS);
 
         } catch (err: any) {
-            toast.error("Faild to create projects: ",err.message)
+            toast.error(err.message || "Failed to create project");
 
         }finally{
           setLoading(false)
@@ -138,13 +131,7 @@ const AddProject = ({ }: IProps) => {
                 type='text'
                 placeholder="add project"
                 {...register("name")}
-                className={`h-12  w-full   border  rounded-sm
-                  py-3.5 px-4  transition-all
-                  bg-[#D7E2FF]
-                placeholder:text-[#737685]
-                  placeholder:text-[16px]
-                  focus:outline-none
-               focus:border-blue-500 
+                className={`${inputClassProjects}
 
 
                   ${errors.name
@@ -203,7 +190,7 @@ const AddProject = ({ }: IProps) => {
                 <label className="text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase">
 
                 </label>
-                <p className="font-medium text-[11px] leading-[16.5px] text-[#4F5F7B] ">0 / 500 characters</p>
+                <p className="font-medium text-[11px] leading-[16.5px] text-[#4F5F7B] ">{description.length} / 500 characters</p>
               </div>
 
 
@@ -211,7 +198,8 @@ const AddProject = ({ }: IProps) => {
             {/* Action  */}
             <div className="flex md:flex-row flex-col flex-col-reverse justify-between items-center mt-auto pt-4 gap-4 md:gap-1 ">
               <Link to={ROUTES.PROJECTS} className="md:text-[14px] text-[16px] md:font-bold font-medium md:leading-5 leading-6 md:text-[#4F5F7B] text-[#003D9B] " >Back</Link>
-              <button type="submit"
+              <button type="submit" disabled:opacity-50
+disabled:cursor-not-allowed
               className="flex justify-center gap-2 md:rounded-xs rounded-lg w-full md:w-auto items-center md:py-3 py-4 md:px-6
                         shadow-[0px_4px_6px_-4px_#003D9B33] 
                         bg-linear-to-br from-[#003D9B] to-[#0052CC]  cursor-pointer">
