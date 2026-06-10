@@ -22,6 +22,10 @@ const Projects=({}:IProps)=> {
   const [projects,setProjects]=useState<Project[]>([])
   const [loading ,setLoading]=useState(true)
   const [error ,setError]=useState(false)
+  const [currentPage, setCurrentPage]=useState(1);
+ const [totalCount,setTotalCount]=useState(0);
+ const limit=4;
+ const totalPages=Math.ceil(totalCount/limit);
   
   const navigate=useNavigate()
   
@@ -34,8 +38,10 @@ const Projects=({}:IProps)=> {
         return
       }
       setLoading(true)
-      const res = await getProjects(token)
-      setProjects(res)
+      const offset = (currentPage-1) * limit;
+      const res = await getProjects(token,limit,offset)
+      setProjects(res.data)
+      setTotalCount(res.totalCount)
 
     }catch(err:any){
      if (err.status === 401) {
@@ -47,10 +53,14 @@ const Projects=({}:IProps)=> {
     }finally{
        setLoading(false)
     }
+    
   }
   getProjectList()
    
-  },[navigate])
+  },[navigate,currentPage]);
+
+const pages = Array.from({ length: totalPages },(_, index) => index + 1);
+
       if(loading){
         return <LoadingProject />
        
@@ -58,7 +68,7 @@ const Projects=({}:IProps)=> {
       if(error){
         return <ErrorProject />
       }
-      if (!loading && projects.length === 0){
+      if (!loading && totalCount === 0){
         return <EmptyProject />
       }
       return (
@@ -111,33 +121,40 @@ const Projects=({}:IProps)=> {
       </button>
 
       {/* pagination */}
-      <div className="hidden md:flex justify-between items-center px-8 pt-12 pb-8 ">
+      {totalPages > 1 &&<div className="hidden md:flex justify-between items-center px-8 pt-12 pb-8 ">
         <div>
-          <p className="text-[#434654] text-[12px] font-medium leading-4 ">Showing 5 of 24 active projects</p>
+          <p className="text-[#434654] text-[12px] font-medium leading-4 ">Showing {projects.length} of {totalCount} active projects</p>
         </div>
 
         <div className="flex items-center justify-center gap-2 ">
-           <button className="flex items-center justify-center rotate-180 border border-[#C3C6D64D] rounded-xs w-8 h-8 ">
+          {/* prev button */}
+           <button 
+             disabled={currentPage===1}
+             onClick={()=>setCurrentPage((prev)=>prev-1)}
+           className="flex items-center justify-center rotate-180 border border-[#C3C6D64D] rounded-xs w-8 h-8  cursor-pointer ">
           
             <ArrowIcon className="text-[#434654] w-[4.31px] h-1.75 " />
           
 
            </button>
-           <button className="border border-[#C3C6D64D] rounded-xs w-8 h-8 bg-[#003D9B] ">
-            <span className="text-[12px] font-bold leading-4 text-[#FFFFFF] ">1</span>
-           </button>
-           <button className="border border-[#C3C6D64D] rounded-xs w-8 h-8  ">
-            <span className="text-[12px] font-bold leading-4 text-[#434654] ">2</span>
-           </button>
-        
-
-           <button className="flex items-center justify-center border border-[#C3C6D64D] rounded-xs  w-8 h-8">
+           {
+            pages.map((page)=>(
+              <button onClick={() => setCurrentPage(page)} className={` cursor-pointer border border-[#C3C6D64D] rounded-xs w-8 h-8  ${currentPage===page ? " bg-[#003D9B] ":""}`}>
+                <span className={`text-[12px] font-bold leading-4 text-[#434654] transition-shadow ${currentPage===page ?"text-[#FFFFFF]":"text-[#434654]"} `}>{page}</span>
+               </button>
+            ))
+           }
+            {/* next button */}
+           <button 
+           disabled={currentPage===totalPages}
+           onClick={()=>setCurrentPage((prev)=>prev+1)}
+            className="flex items-center justify-center border border-[#C3C6D64D] rounded-xs  w-8 h-8  cursor-pointer">
             <ArrowIcon className="text-[#434654] w-[4.31px] h-1.75 " />
            </button>
         </div>
 
 
-      </div>
+      </div>}
 
     </div>
   )
