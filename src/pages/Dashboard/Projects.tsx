@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import PlusIcon from "../../assets/icons/Icon_add.svg?react"
+import AddProject from "../../assets/icons/add-new-proj.svg?react"
 import { ROUTES } from "../../constants/Routes"
 import { useEffect, useState } from "react"
 import { getProjects } from "../../services/projects/get-projects.service"
@@ -23,48 +24,48 @@ const Projects=({}:IProps)=> {
   
   const navigate=useNavigate()
   
-  // useEffect(()=>{
-  //   const getProjectList = async()=>{
-  //   try{
-  //     const token=Cookies.get("access_token");
-  //     if(!token){
-  //       navigate(ROUTES.LOGIN)
-  //       return
-  //     }
-  //     setLoading(true)
-  //     const res = await getProjects(token)
-  //     setProjects(res)
+  useEffect(()=>{
+    const getProjectList = async()=>{
+    try{
+      const token=Cookies.get("access_token");
+      if(!token){
+        navigate(ROUTES.LOGIN)
+        return
+      }
+      setLoading(true)
+      const res = await getProjects(token)
+      setProjects(res)
 
-  //   }catch(err:any){
-  //    if (err.status === 401) {
-  //       navigate(ROUTES.LOGIN)
-  //       return;
-  //     }
+    }catch(err:any){
+     if (err.status === 401) {
+        navigate(ROUTES.LOGIN)
+        return;
+      }
 
-  //     setError(true);
-  //   }finally{
-  //      setLoading(false)
-  //   }
-  // }
-  // getProjectList()
+      setError(true);
+    }finally{
+       setLoading(false)
+    }
+  }
+  getProjectList()
    
-  // },[navigate])
+  },[navigate])
       if(loading){
         return <LoadingProject />
        
       }
-      // if(error){
-      //   return <ErrorProject />
-      // }
-      // if (!loading && projects.length === 0){
-      //   return <EmptyProject />
-      // }
+      if(error){
+        return <ErrorProject />
+      }
+      if (!loading && projects.length === 0){
+        return <EmptyProject />
+      }
       return (
-    <div className="">
+    <div className="px-3 py-5 md:p-0 ">
      
      <div className="flex items-center justify-between md:pr-0">
-        <div className="gap-1">
-            <h1 className="md:font-semibold md:text-[30px] md:leading-9 md:tracking-[-0.75px] text-[#041B3C] ">Projects</h1>
+        <div className="gap-1 px-4 md:px-0  mt-3 md:mt-0">
+            <h1 className=" md:font-semibold font-bold md:text-[30px] text-[24px] leading-8  md:leading-9 tracking-[-0.6px] md:tracking-[-0.75px] text-[#041B3C] ">Projects</h1>
             <p className="md:font-normal text-[16px] leading-6 text-[#434654]  ">Manage and Create your project</p>
         </div>
         <button 
@@ -77,7 +78,7 @@ const Projects=({}:IProps)=> {
      </div>
 
      {/* body of project page */}
-     <main  className="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+     <main  className="my-9 pb-40 md:pb-0 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {
           projects.map((project)=>{
             return < ProjectCard  
@@ -88,7 +89,26 @@ const Projects=({}:IProps)=> {
             />
           })
         }
+        {/* add project box */}
+        <div className=" rounded-lg border-2 border-dashed border-[#C3C6D633] p-6 bg-white hidden md:flex
+           flex-col  items-center justify-center cursor-pointer hover:border-primary transition-all">
+
+      
+          <div className="flex flex-col gap-4 justify-center items-center">
+            <AddProject className="text-black h-12  " onClick={()=>navigate(ROUTES.ADD_PROJECT)}/>
+            <p className="text-[#434654] font-bold text-[14px] leading-[1.4px] tracking-[1.4px] ">ADD PROJECT</p>
+          </div>
+        </div>
      </main>
+     <button
+  className="mt-50 fixed md:hidden bottom-18 right-6 w-14 h-14 bg-linear-to-br from-[#003D9B] to-[#0052CC] text-white text-[24px]
+  rounded-xl shadow-lg  hover:scale-110 transition-all flex items-center justify-center z-50
+  "
+>
+
+    +
+   
+</button>
 
     </div>
   )
