@@ -96,20 +96,22 @@ const Projects=({}:IProps)=> {
 
       
           <div className="flex flex-col gap-4 justify-center items-center">
-            <AddProject className="text-black h-12  " onClick={()=>navigate(ROUTES.ADD_PROJECT)}/>
+            <div className="bg-[#F1F3FF] w-12 h-12 rounded-xl flex items-center justify-center ">
+               <AddProject className="text-black h-12  " onClick={()=>navigate(ROUTES.ADD_PROJECT)}/>
+            </div>
             <p className="text-[#434654] font-bold text-[14px] leading-[1.4px] tracking-[1.4px] ">ADD PROJECT</p>
           </div>
         </div>
      </main>
      {/* floating action button */}
-      <button
+      <button  onClick={()=>navigate(ROUTES.ADD_PROJECT)}
           className="mt-50 fixed md:hidden bottom-18 right-6 w-14 h-14 bg-linear-to-br from-[#003D9B] to-[#0052CC] text-white text-[24px]
                 rounded-xl shadow-lg  hover:scale-110 transition-all flex items-center justify-center z-50"
             >+
       </button>
 
       {/* pagination */}
-      <div className="flex justify-between items-center px-8 pt-12 pb-8 ">
+      <div className="hidden md:flex justify-between items-center px-8 pt-12 pb-8 ">
         <div>
           <p className="text-[#434654] text-[12px] font-medium leading-4 ">Showing 5 of 24 active projects</p>
         </div>
