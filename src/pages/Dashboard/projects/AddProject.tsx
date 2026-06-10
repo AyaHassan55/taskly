@@ -1,19 +1,19 @@
 import { Link, useNavigate } from "react-router-dom"
-import { ROUTES } from "../../constants/Routes"
+import { ROUTES } from "../../../constants/Routes.ts"
 import ArrowRight from "../../assets/icons/Icon_rarrow.svg?react"
 import InviteMember from "../../assets/icons/Icon-project-member.svg?react"
 import InitProjectIcon from "../../assets/icons/inint-project.svg?react"
 import IconError from "../../assets/icons/Icon-err.svg?react"
 import IconTips from "../../assets/icons/Icon-tip.svg?react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { addProjectctSchema, type addProjectFormData } from "../../schemas/add_project.schema"
+import { addProjectctSchema, type addProjectFormData } from "../../../schemas/add_project.schema.ts"
 import { useForm } from "react-hook-form"
 import Cookies from "js-cookie";
 import toast from "react-hot-toast"
-import addProjectService from "../../services/projects/add-project.service"
+import addProjectService from "../../../services/projects/add-project.service.ts"
 import { useState } from "react"
-import  Spinner from "../../components/ui/Spinner"
-import { inputClassProjects } from "../../constants/InputClassStyle.ts"
+import  Spinner from "../../../components/ui/Spinner.tsx"
+import { inputClassProjects } from "../../../constants/InputClassStyle.ts"
 const AddProject = () => {
   const navigate=useNavigate()
   const [loading,setLoading]=useState(false)

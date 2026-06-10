@@ -14,8 +14,8 @@ import ProjectDetails from './pages/Dashboard/ProjectDetails'
 import ProjectMembers from './pages/Dashboard/ProjectMembers'
 import ProjectTasks from './pages/Dashboard/ProjectTasks'
 import ProjectEpics from './pages/Dashboard/ProjectEpics'
-import Projects from './pages/Dashboard/Projects'
-import AddProject from './pages/Dashboard/AddProject'
+import Projects from './pages/Dashboard/projects/Projects'
+import AddProject from './pages/Dashboard/projects/AddProject'
 
 
 function App() {
