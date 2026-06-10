@@ -89,7 +89,7 @@ const pages = Array.from({ length: totalPages },(_, index) => index + 1);
      </div>
 
      {/* body of project page */}
-     <main  className="my-9 pb-40 md:pb-0 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+     <main  className="my-9 pb-40 transition-all duration-300 ease-in-out md:pb-0 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {
           projects.map((project)=>{
             return < ProjectCard  

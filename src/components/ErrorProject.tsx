@@ -11,7 +11,7 @@ const ErrorProject = () => {
         <p className="text-center  text-[#434654] font-normal text-[16px] leading-6 ">You do not have any projects yet. Start by defining
           We're having trouble retrieving your projects right now. Please try again in a moment.</p>
       </div>
-        <button  onClick={()=>navigate(ROUTES.ADD_PROJECT)}
+        <button  onClick={()=>navigate(ROUTES.PROJECTS)}
          
          className="flex justify-center gap-2 rounded-xs items-center py-3 px-6 
         bg-linear-to-br from-[#003D9B] to-[#0052CC] shadow_[0px_25px_50px_-12px_#003D9B4D] cursor-pointer">
