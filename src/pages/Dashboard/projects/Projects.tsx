@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import PlusIcon from "../../assets/icons/Icon_add.svg?react"
-import AddProject from "../../assets/icons/add-new-proj.svg?react"
+import PlusIcon from "../../../assets/icons/Icon_add.svg?react"
+import AddProject from "../../../assets/icons/add-new-proj.svg?react"
 import { ROUTES } from "../../../constants/Routes"
 import { useEffect, useState } from "react"
 import { getProjects } from "../../../services/projects/get-projects.service"
@@ -8,6 +8,7 @@ import Cookies from "js-cookie"
 import LoadingProject from "../../../components/LoadingProject"
 import ErrorProject from "../../../components/ErrorProject"
 import EmptyProject from "../../../components/EmptyProject"
+import ArrowIcon from "../../../assets/icons/Icon_rarrow.svg?react"
 import type { Project } from "../../../types/project"
 import ProjectCard from "../../../components/ProjectCard"
 import { formatDate } from "../../../utils/date-format"
@@ -100,15 +101,41 @@ const Projects=({}:IProps)=> {
           </div>
         </div>
      </main>
-     <button
-  className="mt-50 fixed md:hidden bottom-18 right-6 w-14 h-14 bg-linear-to-br from-[#003D9B] to-[#0052CC] text-white text-[24px]
-  rounded-xl shadow-lg  hover:scale-110 transition-all flex items-center justify-center z-50
-  "
->
+     {/* floating action button */}
+      <button
+          className="mt-50 fixed md:hidden bottom-18 right-6 w-14 h-14 bg-linear-to-br from-[#003D9B] to-[#0052CC] text-white text-[24px]
+                rounded-xl shadow-lg  hover:scale-110 transition-all flex items-center justify-center z-50"
+            >+
+      </button>
 
-    +
-   
-</button>
+      {/* pagination */}
+      <div className="flex justify-between items-center px-8 pt-12 pb-8 ">
+        <div>
+          <p className="text-[#434654] text-[12px] font-medium leading-4 ">Showing 5 of 24 active projects</p>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 ">
+           <button className="flex items-center justify-center rotate-180 border border-[#C3C6D64D] rounded-xs w-8 h-8 ">
+          
+            <ArrowIcon className="text-[#434654] w-[4.31px] h-1.75 " />
+          
+
+           </button>
+           <button className="border border-[#C3C6D64D] rounded-xs w-8 h-8 bg-[#003D9B] ">
+            <span className="text-[12px] font-bold leading-4 text-[#FFFFFF] ">1</span>
+           </button>
+           <button className="border border-[#C3C6D64D] rounded-xs w-8 h-8  ">
+            <span className="text-[12px] font-bold leading-4 text-[#434654] ">2</span>
+           </button>
+        
+
+           <button className="flex items-center justify-center border border-[#C3C6D64D] rounded-xs  w-8 h-8">
+            <ArrowIcon className="text-[#434654] w-[4.31px] h-1.75 " />
+           </button>
+        </div>
+
+
+      </div>
 
     </div>
   )
