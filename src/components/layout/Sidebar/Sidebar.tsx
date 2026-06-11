@@ -1,5 +1,3 @@
-
-
 import iconLogo from "../../../assets/icons/Icon_logo.svg";
 import collapseIcon from "../../../assets/icons/collabse-Icon.svg";
 import logoutIcon from "../../../assets/icons/Icon-logout.svg"
@@ -9,7 +7,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { clearAuthStorage } from "../../../utils/clear-auth";
 import Cookies from "js-cookie";
 import { ROUTES } from "../../../constants/Routes";
-import { NAVIGATION_ITEMS } from "../../../constants/Navigation";
+
+
+
+
+import { useParams } from "react-router-dom";
+import { getNavigationItems } from "../../../constants/Navigation";
 interface IProps {
 collapsed:boolean,
 setCollapsed:React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,6 +26,11 @@ const Sidebar = ({collapsed,setCollapsed}:IProps) => {
     const location = useLocation()
     const navigate = useNavigate();
 
+
+const { projectId } = useParams();
+const navigationItems = getNavigationItems(projectId);
+
+    // logout logic
     const handleLogout = async () => {
         const token = Cookies.get("access_token");
 
@@ -46,7 +54,16 @@ const Sidebar = ({collapsed,setCollapsed}:IProps) => {
 
 
     }
+const isActive = (itemPath: string) => {
+  if (itemPath === "/project") {
+    return location.pathname === "/project"|| location.pathname === "/project/add";
+  }
 
+  return (
+    location.pathname === itemPath ||
+    location.pathname.startsWith(`${itemPath}/`)
+  );
+};
 
     return (
         <aside
@@ -71,12 +88,8 @@ const Sidebar = ({collapsed,setCollapsed}:IProps) => {
 
             {/* items nav */}
             <div className="flex-1 px-2 space-y-2 mt-4">
-                {NAVIGATION_ITEMS.map((item) => {
-                    const active = item.activePaths.some(
-                        (route) =>
-                            location.pathname === route ||
-                            location.pathname.startsWith(`${route}/`)
-                    );
+                {navigationItems.map((item) => {
+                    const active =isActive(item.path)
                     const Icon = item.icon;
 
                     return (

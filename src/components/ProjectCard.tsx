@@ -4,15 +4,16 @@ interface ProjectCardProps {
   name: string;
   description: string;
   createdAt: string;
+  onClick?: () => void;
 }
 
 const ProjectCard = ({
   name,
   description,
-  createdAt,
+  createdAt,onClick
 }: ProjectCardProps) => {
   return (
-    <div className="flex flex-col justify-between rounded-lg p-6 bg-[#FFFFFF] min-h-55 ">
+    <div onClick={onClick} className="flex flex-col justify-between rounded-lg p-6 bg-[#FFFFFF] min-h-55 cursor-pointer ">
       <div>
         <h3 className="font-medium text-[#041B3C] text-[18px] leading-7 ">
           {name}

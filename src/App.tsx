@@ -8,8 +8,6 @@ import Reset_Password from './pages/AuthPages/Reset_Password'
 import AuthRedirect from './components/AuthRedirect'
 import Dashboard from './pages/Dashboard/Dashboard'
 import ProtectedRoute from './components/ProtectedRoutes'
-
-import { ROUTES } from './constants/Routes'
 import ProjectDetails from './pages/Dashboard/ProjectDetails'
 import ProjectMembers from './pages/Dashboard/ProjectMembers'
 import ProjectTasks from './pages/Dashboard/ProjectTasks'
@@ -49,17 +47,19 @@ function App() {
               </ProtectedRoute>
             }
           >
-{/* 
-            <Route path="/project" element={<Projects />} />
-            <Route path="/project/add" element={<AddProject />} /> */}
+
+
             <Route path="/project">
-  <Route index element={<Projects />} />
-  <Route path="add" element={<AddProject />} />
-</Route>
-            <Route path={ROUTES.PROJECTS_EPICS} element={<ProjectEpics />} />
-            <Route path={ROUTES.PROJECTS_TASKS} element={<ProjectTasks />} />
-            <Route path={ROUTES.PROJECTS_MEMBERS} element={<ProjectMembers />} />
-            <Route path={ROUTES.PROJECTS_DETAILS} element={<ProjectDetails />} />
+              <Route index element={<Projects />} />
+              <Route path="add" element={<AddProject />} />
+            </Route>
+            <Route path="/project/:projectId/epics" element={<ProjectEpics />} />
+
+            <Route path="/project/:projectId/tasks" element={<ProjectTasks />} />
+
+            <Route path="/project/:projectId/members" element={<ProjectMembers />} />
+
+            <Route path="/project/:projectId/edit" element={<ProjectDetails />} />
           </Route>
 
         </Routes>

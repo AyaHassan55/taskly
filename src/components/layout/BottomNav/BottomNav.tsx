@@ -1,20 +1,18 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { NAVIGATION_ITEMS } from "../../../constants/Navigation";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getNavigationItems } from "../../../constants/Navigation";
+
 
 const BottomNav = () => {
 
   const location = useLocation()
   const navigate = useNavigate()
-
-
+const { projectId } = useParams();
+const navigationItems = getNavigationItems(projectId);
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E5E7EB] flex justify-around py-2 md:hidden z-40">
-      {NAVIGATION_ITEMS.map((item) => {
-        const active = item.activePaths.some(
-                        (route) =>
-                            location.pathname === route ||
-                            location.pathname.startsWith(`${route}/`)
-                    );
+      {navigationItems.map((item) => {
+        const active =  location.pathname === item.path ||
+location.pathname.startsWith(`${item.path}/`)
          const Icon = item.icon;
         return (
           <button
