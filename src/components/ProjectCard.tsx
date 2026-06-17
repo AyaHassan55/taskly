@@ -1,23 +1,33 @@
 
-
+import EditIcon from '../assets/icons/edit.svg?react'
 interface ProjectCardProps {
   name: string;
   description: string;
   createdAt: string;
   onClick?: () => void;
+  onEdit?:()=>void;
 }
 
 const ProjectCard = ({
   name,
   description,
-  createdAt,onClick
+  createdAt,onClick,onEdit
 }: ProjectCardProps) => {
   return (
     <div onClick={onClick} className="flex flex-col justify-between rounded-lg p-6 bg-[#FFFFFF] min-h-55 cursor-pointer ">
       <div>
-        <h3 className="font-medium text-[#041B3C] text-[18px] leading-7 ">
-          {name}
-        </h3>
+        <div className="flex items-center  justify-between">
+          <h3 className="font-medium text-[#041B3C] text-[18px] leading-7 ">
+            {name}
+          </h3>
+          <button onClick={(e)=>{
+            e.stopPropagation();
+            onEdit?.()
+          }}>
+            <EditIcon className='text-primary text-xs w-5 h-5 ' />
+          </button>
+        </div>
+        
 
         <p className="text-sm text-[#434654] mt-2 leading-[22.75px]">
           {description}

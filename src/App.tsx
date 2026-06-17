@@ -8,12 +8,13 @@ import Reset_Password from './pages/AuthPages/Reset_Password'
 import AuthRedirect from './components/AuthRedirect'
 import Dashboard from './pages/Dashboard/Dashboard'
 import ProtectedRoute from './components/ProtectedRoutes'
-import ProjectDetails from './pages/Dashboard/ProjectDetails'
+import ProjectDetails from './pages/Dashboard/projects/ProjectDetails'
 import ProjectMembers from './pages/Dashboard/ProjectMembers'
 import ProjectTasks from './pages/Dashboard/ProjectTasks'
 import ProjectEpics from './pages/Dashboard/ProjectEpics'
 import Projects from './pages/Dashboard/projects/Projects'
 import AddProject from './pages/Dashboard/projects/AddProject'
+import EditProject from './pages/Dashboard/projects/ProjectDetails'
 
 
 function App() {
@@ -59,7 +60,11 @@ function App() {
 
             <Route path="/project/:projectId/members" element={<ProjectMembers />} />
 
-            <Route path="/project/:projectId/edit" element={<ProjectDetails />} />
+            <Route path="/project/:projectId/edit" element={<EditProject />} />
+            <Route
+              path="/project/:projectId/edit"
+              element={<EditProject />}
+            />
           </Route>
 
         </Routes>

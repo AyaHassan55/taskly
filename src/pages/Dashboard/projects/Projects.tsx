@@ -97,6 +97,7 @@ const Projects = ({ }: IProps) => {
               description={project.description}
               createdAt={formatDate(project.created_at)}
               onClick={() => navigate(`/project/${project.id}/epics`)}
+              onEdit={() => navigate(`/project/${project.id}/edit`)}
             />
           })
         }
