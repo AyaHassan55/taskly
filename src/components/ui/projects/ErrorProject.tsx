@@ -1,6 +1,6 @@
-import ErrorImage from "../assets/images/ErrorProject.svg?react"
+import ErrorImage from "../../../assets/images/ErrorProject.svg?react"
 import { useNavigate } from "react-router-dom"
-import { ROUTES } from "../constants/Routes"
+import { ROUTES } from "../../../constants/Routes"
 const ErrorProject = () => {
   const navigate=useNavigate()
   return (

@@ -1,7 +1,7 @@
-import EmptyProjImage from "../assets/images/EmptyImage.svg?react"
-import AddNewProject from "../assets/icons/add-new-proj.svg?react"
+import EmptyProjImage from "../../../assets/images/EmptyImage.svg?react"
+import AddNewProject from "../../../assets/icons/add-new-proj.svg?react"
 import { useNavigate } from "react-router-dom"
-import { ROUTES } from "../constants/Routes"
+import { ROUTES } from "../../../constants/Routes"
 const EmptyProject = () => {
   const navigate=useNavigate()
   return (

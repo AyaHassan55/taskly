@@ -24,7 +24,7 @@ const ProjectCard = ({
             e.stopPropagation();
             onEdit?.()
           }}>
-            <EditIcon className='text-primary text-xs w-5 h-5 ' />
+            <EditIcon className='text-primary text-xs w-5 h-5 cursor-pointer' />
           </button>
         </div>
         
