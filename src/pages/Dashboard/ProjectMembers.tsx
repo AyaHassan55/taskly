@@ -7,6 +7,7 @@ import { getAvatarLetters } from "../../utils/get-avatar-letter";
 import getProjectById from "../../services/projects/get-project-by-id.service";
 import toast from "react-hot-toast";
 import MoreActionIcon from "../../assets/icons/moreActionIcon.svg?react"
+import AddMember from "../../assets/icons/add-member.svg?react"
 import ProjectPageHeader from "../../components/ui/proiectPageHeader";
 interface IProps {
 
@@ -88,7 +89,7 @@ const ProjectMembers = ({ }: IProps) => {
       />
 
       {/* table */}
-      <div className="mt-16 mx-auto w-3xl border border-[#E6EAF2] shadow-[0px_1px_2px_0px_#0000000D]  bg-white rounded-lg overflow-hidden ">
+      <div className="hidden sm:block mt-16 mx-auto w-3xl border border-[#E6EAF2] shadow-[0px_1px_2px_0px_#0000000D]  bg-white rounded-lg overflow-hidden ">
 
         <table className="w-full">
           <thead className=" bg-[#e0fff84d]">
@@ -155,8 +156,77 @@ const ProjectMembers = ({ }: IProps) => {
 
       </div>
 
+      {/* mobile table */}
+
+ <div className="sm:hidden space-y-4">
+        {members.map(member => {
+          
+          return (
+            <div>
+              <h1 className="mt-5 text-[29px] font-semibold text-[#041B3C] leading-10 tracking-[-0.9px] text-center">
+                   Project Member
+              </h1>
+            <div
+              key={`${member.member_id}`}
+              className="bg-white rounded-md p-4 m-3 flex items-center gap-3 overflow-hidden "
+            >
+               
+              <div className="flex items-center gap-3 min-w-0 flex-1 overflow-hidden">
+                <div className="w-10 h-10 mr-3 rounded-lg bg-blue-100 flex items-center justify-center">
+                      <span className="text-xs font-semibold text-blue-700">
+                        {getAvatarLetters(member.metadata.name)}
+
+                      </span>
+                    </div>
+
+                <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
+                  <p className="text-body-md font-semibold text-slate-dark truncate">
+                    {member.metadata.name}
+                  </p>
+                  <p className="text-body-sm text-slate-medium truncate">
+                    {member.email}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col items-end gap-2 shrink-0">
+                <div className="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-semibold text-sm shrink-0">
+                     <span
+                    className={`px-3 py-2 rounded-lg  font-bold text-[10px] leading-[100%] tracking-[0.5px] ${roleStyles[
+                      member.role.toLowerCase() as keyof typeof roleStyles
+                      ]
+                      }`}
+                  >
+                    {member.role.toUpperCase()}
+                  </span>
+                </div>
+                
+                {member.role !== 'owener' && (
+                  <button
+                    className="p-1 hover:bg-surface-low rounded transition-colors"
+                    aria-label="Member actions"
+                  >
+                    <MoreActionIcon className="w-5 h-5 text-slate-medium" />
+                  </button>
+                )}
+              </div>
+            </div>
+            </div>
+          );
+        })}
+      </div>
+
+      
+      
+       {/* floating action button */}
+            <button 
+            // onClick={() => navigate(ROUTES.ADD_PROJECT)}
+              className="mt-50 fixed md:hidden bottom-18 right-6 w-14 h-14 bg-linear-to-br from-[#003D9B] to-[#0052CC] text-white text-[24px]
+                      rounded-xl shadow-lg  hover:scale-110 transition-all flex items-center justify-center z-50"
+            ><AddMember className="w-6 h-6" />
+
+            </button>
     </div>
-  )
+  );
 }
 
 export default ProjectMembers
