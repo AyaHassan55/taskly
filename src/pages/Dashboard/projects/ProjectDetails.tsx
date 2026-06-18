@@ -1,7 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { ROUTES } from "../../../constants/Routes.ts"
-import ArrowRight from "../../../assets/icons/Icon_rarrow.svg?react"
-import InviteMember from "../../../assets/icons/Icon-project-member.svg?react"
 import InitProjectIcon from "../../../assets/icons/inint-project.svg?react"
 import IconError from "../../../assets/icons/Icon-err.svg?react"
 import IconTips from "../../../assets/icons/Icon-tip.svg?react"
@@ -17,6 +15,7 @@ import { inputClassProjects } from "../../../constants/InputClassStyle.ts"
 import updateProjectService from "../../../services/projects/update-project.service.ts"
 
 import getProjectById from "../../../services/projects/get-project-by-id.service.ts"
+import ProjectPageHeader from "../../../components/ui/proiectPageHeader.tsx"
 
 const EditProject = () => {
   const navigate=useNavigate()
@@ -34,6 +33,7 @@ console.log(projectId);
     mode: 'onChange',
   });
   const description = watch("description") || "";
+  // get project by id
 useEffect(() => {
   const fetchProject = async () => {
     const token = Cookies.get("access_token");
@@ -88,54 +88,18 @@ useEffect(() => {
 
 
     }
-    console.log(projectName)
+  
   return (
 
     <div className=" ">
 
       {/* creadcrumps and header  */}
-      <div className="hidden md:flex items-end justify-between ">
-        {/* creadcrumbs */}
-        <div className="">
-          <div className="flex items-center gap-4 mb-2 ">
-            <Link
-              to={ROUTES.PROJECTS}
-              className="text-xs font-bold uppercase text-[#43465499] leading-4 tracking-[1.2px] "
-            >
-              PROJECTS
-            </Link>
-
-            <ArrowRight className="w-[3.7px] h-1.5 text-[#43465466]" />
-
-
-
-            <span className="text-xs font-bold uppercase text-[#43465499]">
-  {projectName}
-</span>
-
-<ArrowRight className="w-[3.7px] h-1.5 text-[#43465466]" />
-
-<span className="text-xs font-bold uppercase text-[#003D9B]">
-  EDIT
-</span>
-          </div>
-
-          <h1 className="text-[36px] font-semibold text-[#041B3C] leading-10 tracking-[-0.9px] ">
-            Edit Project
-          </h1>
-
-        </div>
-        <button className="flex justify-center gap-2 rounded-xs items-center md:py-3 md:px-6 
-        bg-linear-to-br from-[#003D9B] to-[#0052CC] shadow_[0px_1px_2px_0_#0000000D] cursor-pointer">
-
-          <InviteMember className='w-[18.33px] h-[13.33px] text-[#FFFFFF] ' />
-          <span className="text-sm font-bold  text-[#FFFFFF] leading-5  ">
-            Invite Member
-          </span>
-        </button>
-
-
-      </div>
+      <ProjectPageHeader
+        projectName={projectName}
+        pageTitle="Edit Project"
+        currentPage="Edit"
+        showInviteButton={true}
+      />
 
       {/* form for edit project */}
       <div className="md:mt-10 w-full md:px-4 md:min-h-screen flex items-start justify-center">
