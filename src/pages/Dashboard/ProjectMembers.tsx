@@ -9,6 +9,9 @@ import toast from "react-hot-toast";
 import MoreActionIcon from "../../assets/icons/moreActionIcon.svg?react"
 import AddMember from "../../assets/icons/add-member.svg?react"
 import ProjectPageHeader from "../../components/ui/proiectPageHeader";
+
+import MemberSkelton from "../../components/ui/project Members/MemberSkeleton";
+
 interface IProps {
 
 
@@ -19,7 +22,7 @@ const ProjectMembers = ({ }: IProps) => {
   const { projectId } = useParams();
 
   const [members, setMembers] = useState<ProjectMember[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [projectName, setProjectName] = useState("");
   // role styles
@@ -73,7 +76,13 @@ const ProjectMembers = ({ }: IProps) => {
   }, [projectId]);
 
   if (loading) {
-    return "members loading"
+    return(
+ 
+   <MemberSkelton/>
+  
+   
+    );
+  
   }
   if (error) {
     return 'error'
