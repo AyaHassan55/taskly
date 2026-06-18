@@ -12,6 +12,8 @@ import ProjectPageHeader from "../../components/ui/proiectPageHeader";
 
 import MemberSkelton from "../../components/ui/project Members/MemberSkeleton";
 
+import ErrorMember from "../../components/ui/project Members/ErrorMember";
+
 interface IProps {
 
 
@@ -85,7 +87,7 @@ const ProjectMembers = ({ }: IProps) => {
   
   }
   if (error) {
-    return 'error'
+    return <ErrorMember/>
   }
   return (
     <div>
