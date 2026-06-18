@@ -6,5 +6,8 @@ export const ROUTES = {
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: "/reset-password",
   PROJECTS:"/project",
-  ADD_PROJECT:"/project/add"
+  ADD_PROJECT:"/project/add",
+  //--------------------- dynamic route------------------
+  ADD_EPIC: '/project/:projectId/epics/new',
+
 };
