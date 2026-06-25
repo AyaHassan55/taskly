@@ -3,16 +3,16 @@ import CreateEpicIcon from "../../../assets/icons/create-epic-icon.svg?react"
 import GoalsIcon from "../../../assets/icons/goals-Icon.svg?react"
 import HirecDesignIcon from "../../../assets/icons/hirec-design-Icon.svg?react"
 import TrackVeloIcon from "../../../assets/icons/track-velo-Icon.svg?react"
-import { useNavigate } from "react-router-dom"
-import { ROUTES } from "../../../constants/Routes"
+import {  useNavigate } from "react-router-dom"
+import { PATHS } from "../../../constants/Routes"
 interface IProps {
-
+projectId:string;
 
 
 }
 
-const EmptyEpic = ({ }: IProps) => {
-    const navigate = useNavigate()
+const EmptyEpic = ({projectId}: IProps) => {
+    const navigate = useNavigate();
     return (
         <div className="bg-[#F9F9FF]">
             <div className="mx-w-[672px] flex flex-col items-center gap-3">
@@ -23,7 +23,7 @@ const EmptyEpic = ({ }: IProps) => {
                     architectural clarity.
                 </p>
                 <button
-                    onClick={() => navigate(ROUTES.ADD_EPIC)}
+                    onClick={() => navigate(PATHS.addEpic(projectId))}
 
                     className="flex justify-center gap-2 rounded-xs items-center py-3 px-6 
                                 bg-linear-to-br from-[#003D9B] to-[#0052CC] shadow_[0px_25px_50px_-12px_#003D9B4D] cursor-pointer">

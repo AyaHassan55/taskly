@@ -3,13 +3,14 @@ import { ROUTES } from "../../constants/Routes";
 import ArrowRight from "../../assets/icons/Icon_rarrow.svg?react"
 import InviteMember from "../../assets/icons/Icon-project-member.svg?react"
 interface ProjectPageHeaderProps {
+  checkWord?:string;
   projectName: string;
   pageTitle: string;
   currentPage: string;
   showInviteButton?: boolean;
 }
 
-const ProjectPageHeader = ({
+const ProjectPageHeader = ({checkWord,
   projectName,
   pageTitle,
   currentPage,
@@ -33,6 +34,17 @@ const ProjectPageHeader = ({
           </span>
 
           <ArrowRight className="w-[3.7px] h-1.5 text-[#43465466]" />
+          {checkWord==='epic' &&
+          <>
+          
+           <Link to={ROUTES.PROJECT_EPICS} className="text-xs font-bold uppercase text-[#43465499]">
+            Epics
+          </Link>
+          <ArrowRight className="w-[3.7px] h-1.5 text-[#43465466]" />
+          </>
+           
+          
+          }
 
           <span className="text-xs font-bold uppercase text-[#003D9B]">
             {currentPage}
@@ -42,6 +54,11 @@ const ProjectPageHeader = ({
         <h1 className="text-[36px] font-semibold text-[#041B3C] leading-10 tracking-[-0.9px]">
           {pageTitle}
         </h1>
+        {
+          checkWord==='epic'&&
+          <p className= "mt-2 text-[#434654] text-[16px] leading-6 w-full mx-w-[512px] ">Define a major project phase or high-level milestone to group
+          <br/>related tasks and track architectural progress.</p>
+        }
       </div>
 
       {showInviteButton && (

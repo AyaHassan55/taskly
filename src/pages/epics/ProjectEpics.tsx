@@ -1,5 +1,6 @@
-import { useState } from "react"
+// import { useState } from "react"
 import EmptyEpic from "../../components/ui/project_epic/EmptyEpic"
+import { useParams } from "react-router-dom";
 
 interface IProps {
 
@@ -8,9 +9,10 @@ interface IProps {
 }
 
 const ProjectEpics=({}:IProps)=> {
-  const [loading,setLoading]=useState(false)
+  const { projectId } = useParams();
+  // const [loading,setLoading]=useState(false)
 
-  if(true)return <EmptyEpic />
+  if(true)return <EmptyEpic projectId={projectId! }/>
   return (
     <div>
         <h1>project epics</h1>

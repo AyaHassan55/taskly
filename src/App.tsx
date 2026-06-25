@@ -10,10 +10,12 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import ProtectedRoute from './components/ProtectedRoutes'
 import ProjectMembers from './pages/Dashboard/ProjectMembers'
 import ProjectTasks from './pages/Dashboard/ProjectTasks'
-import ProjectEpics from './pages/Dashboard/ProjectEpics'
+import ProjectEpics from './pages/epics/ProjectEpics'
 import Projects from './pages/Dashboard/projects/Projects'
 import AddProject from './pages/Dashboard/projects/AddProject'
 import EditProject from './pages/Dashboard/projects/ProjectDetails'
+import AddEpics from './pages/epics/AddEpics'
+import { ROUTES } from './constants/Routes'
 
 
 function App() {
@@ -52,18 +54,16 @@ function App() {
             <Route path="/project">
               <Route index element={<Projects />} />
               <Route path="add" element={<AddProject />} />
+
             </Route>
-            <Route path="/project/:projectId/epics" element={<ProjectEpics />} />
 
-            <Route path="/project/:projectId/tasks" element={<ProjectTasks />} />
 
-            <Route path="/project/:projectId/members" element={<ProjectMembers />} />
+            <Route path={ROUTES.PROJECT_EPICS} element={<ProjectEpics />} />
+            <Route path={ROUTES.ADD_EPIC} element={<AddEpics />} />
+            <Route path={ROUTES.PROJECT_TASKS} element={<ProjectTasks />} />
+            <Route path={ROUTES.PROJECT_MEMBERS} element={<ProjectMembers />} />
+            <Route path={ROUTES.PROJECT_DETAILS} element={<EditProject />} />
 
-            <Route path="/project/:projectId/edit" element={<EditProject />} />
-            <Route
-              path="/project/:projectId/edit"
-              element={<EditProject />}
-            />
           </Route>
 
         </Routes>
