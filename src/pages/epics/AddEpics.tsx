@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import getProjectById from "../../services/projects/get-project-by-id.service";
 import toast from "react-hot-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createEpicSchema, type CreateEpicFormData } from "../../schemas/add_epic.schema";
+import { useForm } from "react-hook-form";
+import FormInput from "../../components/ui/FormInput";
 interface IProps {
 
 
@@ -35,7 +39,15 @@ const AddEpics = ({ }: IProps) => {
 
     fetchProject();
   }, [projectId]);
-  console.log(projectName)
+  // zod validation
+  const {
+  register,
+  handleSubmit,watch,
+  formState: { errors, isSubmitting },
+} = useForm<CreateEpicFormData>({
+  resolver: zodResolver(createEpicSchema),
+});
+  const description = watch("description") || "";
   return (
     <div>
       {/* breadcrumbs */}
@@ -61,38 +73,67 @@ const AddEpics = ({ }: IProps) => {
           {/* Input */}
           <div className="col-span-3 w-full">
             <input
-              type="text"
+              type="text" {...register('title')}
               placeholder="e.g. Structural Foundation Phase"
-              className="w-full h-11.75 border border-transparent rounded-sm px-4 py-3.5
-         bg-[#D7E2FF] placeholder:text-[16px] 
-         placeholder:leading-[100%] placeholder:text-[#43465466]
-         active:border-blue-600 
-         "
+              className={`w-full h-11.75 border border-transparent rounded-sm px-4 py-3.5
+             bg-[#D7E2FF] placeholder:text-[16px] 
+               placeholder:leading-[100%] placeholder:text-[#43465466]
+               active:border-blue-600  focus:outline-0 ${errors.description
+
+                    ? "border-red-500"
+                    : "border-transparent focus:border-blue-500"
+                  } `}
+         
             />
           </div>
+           {errors.title && (
+            <p>{errors.title.message}</p>
+  )}
         </div>
 
         {/* description */}
-        <div className="grid grid-cols-4 gap-6 px-6">
+        <div className="grid grid-cols-4 gap-6 px-6 mt-6">
           {/* Label */}
           <div className="col-span-1 pt-2 h-6.25 flex flex-col">
             <label className="text-[11px] font-bold uppercase leading-[16.5px] tracking-[1.1px] ">
               Description 
             </label>
-            <p>optional</p>
+            <p className="text-[#43465480] text-[10px] leading-3.5" >optional</p>
           </div>
 
-          {/* Input */}
+          {/* textarea */}
           <div className="col-span-3 w-full">
-            <input
-              type="text"
-              placeholder="e.g. Structural Foundation Phase"
-              className="w-full h-11.75 border border-transparent rounded-sm px-4 py-3.5
-         bg-[#D7E2FF] placeholder:text-[16px] 
-         placeholder:leading-[100%] placeholder:text-[#43465466]
-         active:border-blue-600 
-         "
+            <textarea
+                rows={5}
+              {...register("description")}
+              
+              placeholder="Describe the scope and objectives of this epic..."
+              className={`w-full  min-h-10.75 border border-transparent rounded-sm px-4 py-3.5
+             bg-[#D7E2FF] placeholder:text-[16px] 
+               placeholder:leading-6 placeholder:text-[#43465466]
+             active:border-blue-600 focus:outline-none
+             ${errors.description
+
+                    ? "border-red-500"
+                    : "border-transparent focus:border-blue-500"
+                  }`}
+         
             />
+            {/* 3-------------- */}
+              <div className="flex justify-between">
+                <label className="text-slate-700 font-bold text-[11px] tracking-[0.55px] leading-[16.5px] uppercase">
+
+                </label>
+                <p className="font-medium text-[11px] leading-[16.5px] text-[#4F5F7B] ">{description.length} / 500 characters</p>
+              </div>
+          </div>
+        </div>
+
+        {/* Assignee row */}
+        <div className="flex">
+          <div>
+            <label >Assignee</label>
+            <input placeholder="Select a member..." />
           </div>
         </div>
 

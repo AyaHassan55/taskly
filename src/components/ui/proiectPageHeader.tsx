@@ -51,7 +51,7 @@ const ProjectPageHeader = ({checkWord,
           </span>
         </div>
 
-        <h1 className="text-[36px] font-semibold text-[#041B3C] leading-10 tracking-[-0.9px]">
+        <h1 className="mt-7 text-[36px] font-semibold text-[#041B3C] leading-10 tracking-[-0.9px]">
           {pageTitle}
         </h1>
         {
