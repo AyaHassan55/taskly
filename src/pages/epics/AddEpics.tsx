@@ -6,8 +6,11 @@ import getProjectById from "../../services/projects/get-project-by-id.service";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createEpicSchema, type CreateEpicFormData } from "../../schemas/add_epic.schema";
-import { useForm } from "react-hook-form";
+import { useController, useForm } from "react-hook-form";
 import FormInput from "../../components/ui/FormInput";
+import SelectField from "../../components/ui/SelectField";
+import type { ProjectMember } from "../../types/members";
+import getProjectMembers from "../../services/get-members.service";
 interface IProps {
 
 
@@ -15,10 +18,15 @@ interface IProps {
 }
 
 const AddEpics = ({ }: IProps) => {
+
+
+
   const { projectId } = useParams();
   const [projectName, setProjectName] = useState('')
-  //  get project by id
-  console.log(projectId);
+  const [members, setMembers] = useState<ProjectMember[]>([]);
+  const [isMemberLoading, setIsMemberLoading] = useState(false);
+
+  // ---------get project by id-----------
   useEffect(() => {
     const fetchProject = async () => {
       const token = Cookies.get("access_token");
@@ -32,16 +40,42 @@ const AddEpics = ({ }: IProps) => {
 
 
       } catch(error) {
-        console.log(error)
+        
         toast.error("Failed to load project");
       }
     };
 
     fetchProject();
   }, [projectId]);
-  // zod validation
+
+  // --------get members-------------
+  useEffect(()=>{
+    if(!projectId) return;
+
+    const fetchMembers =async() =>{
+      try{
+        setIsMemberLoading(true);
+        const members=await getProjectMembers(projectId);
+        setMembers(members);
+      }
+      catch(error){
+        toast.error("Failed to load members");
+      }finally{
+        setIsMemberLoading(false);
+      }
+    }
+  
+
+
+
+
+fetchMembers();
+
+  },[projectId]);
+  
+  //--------- zod validation-----------
   const {
-  register,
+  register,control,
   handleSubmit,watch,
   formState: { errors, isSubmitting },
 } = useForm<CreateEpicFormData>({
@@ -130,10 +164,49 @@ const AddEpics = ({ }: IProps) => {
         </div>
 
         {/* Assignee row */}
-        <div className="flex">
-          <div>
-            <label >Assignee</label>
-            <input placeholder="Select a member..." />
+        <div className="grid grid-cols-2 grid-rows-1 w-full h-[80.5px] gap-8 px-6 mt-6">
+          <div className="col-start-1 row-start-1 col-span-1 row-span-1">
+            
+            {/* <input placeholder="Select a member..." /> */}
+              <SelectField
+                  control={control}
+                  name="assignee_id"
+                  label="ASSIGNEE"
+                  
+                >
+                  <option value="">Select a member...</option>
+                  {isMemberLoading ? (
+                    <option value="">Loading members...</option>
+                  ) : (
+                    members.map((member) => (
+                      <option key={member.user_id} value={member.user_id}>
+                        {member.metadata.name}
+                      </option>
+                    ))
+                  )}
+                </SelectField>
+          </div>
+
+          <div className="col-start-2 row-start-1 col-span-1 row-span-1">
+            
+            {/* <input placeholder="Select a member..." /> */}
+              <SelectField
+                  control={control}
+                  name="assignee_id"
+                  label="ASSIGNEE"
+                  
+                >
+                  <option value="">Select a member...</option>
+                  {isMemberLoading ? (
+                    <option value="">Loading members...</option>
+                  ) : (
+                    members.map((member) => (
+                      <option key={member.user_id} value={member.user_id}>
+                        {member.metadata.name}
+                      </option>
+                    ))
+                  )}
+                </SelectField>
           </div>
         </div>
 

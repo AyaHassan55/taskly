@@ -1,6 +1,6 @@
 const baseURL = "https://yfiphsggadtumstkunju.supabase.co";
 const getProjectMembers = async (
-    token: string,
+   
     projectId: string
 ) => {
     const res =await fetch(
@@ -9,7 +9,7 @@ const getProjectMembers = async (
         headers: {
             "Content-Type": "application/json",
             apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${token}`,
+            
         },
     }
     );
