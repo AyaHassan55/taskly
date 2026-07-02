@@ -17,7 +17,7 @@ const ProjectPageHeader = ({checkWord,
   showInviteButton = true,
 }: ProjectPageHeaderProps) => {
   return (
-    <div className="hidden md:flex items-end justify-between">
+    <div className="hidden md:flex items-end justify-between mx-10 mt-4 mb-4">
       <div>
         <div className="flex items-center gap-4 mb-2">
           <Link
