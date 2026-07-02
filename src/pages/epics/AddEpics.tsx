@@ -6,8 +6,8 @@ import getProjectById from "../../services/projects/get-project-by-id.service";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createEpicSchema, type CreateEpicFormData } from "../../schemas/add_epic.schema";
-import { useController, useForm } from "react-hook-form";
-import FormInput from "../../components/ui/FormInput";
+import {  useForm } from "react-hook-form";
+
 import SelectField from "../../components/ui/SelectField";
 import type { ProjectMember } from "../../types/members";
 import getProjectMembers from "../../services/get-members.service";
@@ -76,8 +76,11 @@ fetchMembers();
   //--------- zod validation-----------
   const {
   register,control,
-  handleSubmit,watch,
-  formState: { errors, isSubmitting },
+  // handleSubmit,
+  watch,
+  formState: { errors,
+    //  isSubmitting 
+    },
 } = useForm<CreateEpicFormData>({
   resolver: zodResolver(createEpicSchema),
 });
