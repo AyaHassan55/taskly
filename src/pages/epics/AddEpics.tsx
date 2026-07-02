@@ -25,11 +25,11 @@ const AddEpics = ({ }: IProps) => {
   const [projectName, setProjectName] = useState('')
   const [members, setMembers] = useState<ProjectMember[]>([]);
   const [isMemberLoading, setIsMemberLoading] = useState(false);
-
+const token = Cookies.get("access_token");
   // ---------get project by id-----------
   useEffect(() => {
     const fetchProject = async () => {
-      const token = Cookies.get("access_token");
+      
 
       if (!token || !projectId) return;
 
@@ -54,8 +54,10 @@ const AddEpics = ({ }: IProps) => {
 
     const fetchMembers =async() =>{
       try{
+       
+              if (!token || !projectId) return;
         setIsMemberLoading(true);
-        const members=await getProjectMembers(projectId);
+        const members=await getProjectMembers(token, projectId);
         setMembers(members);
       }
       catch(error){
