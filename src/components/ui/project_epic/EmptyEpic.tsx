@@ -15,10 +15,10 @@ const EmptyEpic = ({projectId}: IProps) => {
     const navigate = useNavigate();
     return (
         <div className="bg-[#F9F9FF]">
-            <div className="mx-w-[672px] flex flex-col items-center gap-3">
-                <EpicEmpty />
-                <h2 className="text-[30px] text-[#041B3C] font-semibold leading-9 tracking-[-0.75px] text-center ">No epics in this project yet.</h2>
-                <p className="text-[18px] text-[#434654] font-normal leading-[29.25px] text-center ">Break down your large project into manageable
+            <div className="md:max-w-2xl mx-auto flex flex-col md:items-center gap-3">
+                <EpicEmpty className= "w-100 md:w-166 " />
+                <h2 className="text-[25px] md:text-[30px] text-[#041B3C] font-semibold md:leading-9 md:tracking-[-0.75px] text-center ">No epics in this project yet.</h2>
+                <p className="text-[14px] md:text-[18px] text-[#434654] font-normal md:leading-[29.25px] text-center ">Break down your large project into manageable
                     epics to track progress better and maintain
                     architectural clarity.
                 </p>
