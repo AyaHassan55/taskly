@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProjectPageHeader from "../../components/ui/proiectPageHeader"
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -11,6 +11,10 @@ import { useForm } from "react-hook-form";
 import SelectField from "../../components/ui/SelectField";
 import type { ProjectMember } from "../../types/members";
 import getProjectMembers from "../../services/get-members.service";
+import Button from "../../components/ui/Button";
+import { ROUTES } from "../../constants/Routes";
+import addEpicService from "../../services/projects/add-epic.service";
+import IconError from "../../assets/icons/Icon-err.svg?react"
 interface IProps {
 
 
@@ -20,12 +24,14 @@ interface IProps {
 const AddEpics = ({ }: IProps) => {
 
 
-
+  const navigate = useNavigate();
   const { projectId } = useParams();
   const [projectName, setProjectName] = useState('')
   const [members, setMembers] = useState<ProjectMember[]>([]);
   const [isMemberLoading, setIsMemberLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const token = Cookies.get("access_token");
+ 
   // ---------get project by id-----------
   useEffect(() => {
     const fetchProject = async () => {
@@ -75,14 +81,40 @@ const AddEpics = ({ }: IProps) => {
 
   }, [projectId]);
 
+  //---------handle form submit-------------
+  const onSubmit = async (data: CreateEpicFormData) => {
+    if (!token || !projectId) {
+      toast.error("Missing project or authentication");
+      return;
+    }
+    try {
+      setIsLoading(true);
+      await addEpicService(token, { ...data, project_id: projectId });
+      
+      toast.success("Epic created successfully");
+      navigate(ROUTES.PROJECT_EPICS.replace(":projectId", projectId));
+
+    } catch (error) {
+      toast.error("Failed to create epic");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  // --------handel cancel button click-------------
+  const handleCancel = () => {
+    if (projectId) {
+      navigate(ROUTES.PROJECT_EPICS.replace(":projectId", projectId));
+    } else {
+      navigate(ROUTES.PROJECTS);
+    }
+
+  }
   //--------- zod validation-----------
   const {
     register, control,
-    // handleSubmit,
+    handleSubmit,
     watch,
-    formState: { errors,
-      //  isSubmitting 
-    },
+    formState: { errors },
   } = useForm<CreateEpicFormData>({
     resolver: zodResolver(createEpicSchema),
   });
@@ -100,7 +132,7 @@ const AddEpics = ({ }: IProps) => {
       />
       {/* ---------form------------ */}
       <div className='mx-10'>
-        <form className="bg-white w-full mx-w-[848px] border border-[#C3C6D61A] rounded-lg pt-5 pb-4 mt-8 ">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-white w-full mx-w-[848px] border border-[#C3C6D61A] rounded-lg pt-5 pb-4 mt-8 ">
           {/* title epic */}
           <div className="grid grid-cols-4 gap-6 px-6">
             {/* Label */}
@@ -115,20 +147,23 @@ const AddEpics = ({ }: IProps) => {
               <input
                 type="text" {...register('title')}
                 placeholder="e.g. Structural Foundation Phase"
-                className={`w-full h-11.75 border border-transparent rounded-sm px-4 py-3.5
-             bg-[#D7E2FF] placeholder:text-[16px] 
-               placeholder:leading-[100%] placeholder:text-[#43465466]
-               active:border-blue-600  focus:outline-0 ${errors.description
-
-                    ? "border-red-500"
-                    : "border-transparent focus:border-blue-500"
-                  } `}
-
+                className={`w-full h-11.75 rounded-sm px-4 py-3.5 bg-[#D7E2FF] placeholder:text-[16px] placeholder:leading-[100%] placeholder:text-[#43465466] 
+                    ${
+                  errors.title
+                    ? ' focus:outline-[#BA1A1A]'
+                    : ' focus:outline-blue-600'
+                }`}
               />
+              {errors.title && (
+                <div className="flex justify-start items-center mt-1.5">
+                  <IconError />
+                  <p className="text-[#BA1A1A] pl-1 uppercase text-[11px] font-medium leading-4 tracking-[0.55px]">
+                    {errors.title.message}
+                  </p>
+                </div>
+              )}
             </div>
-            {errors.title && (
-              <p>{errors.title.message}</p>
-            )}
+            
           </div>
 
           {/* description */}
@@ -151,7 +186,7 @@ const AddEpics = ({ }: IProps) => {
                 className={`w-full  min-h-10.75 border border-transparent rounded-sm px-4 py-3.5
              bg-[#D7E2FF] placeholder:text-[16px] 
                placeholder:leading-6 placeholder:text-[#43465466]
-             active:border-blue-600 focus:outline-none
+              focus:outline-blue-600
              ${errors.description
 
                     ? "border-red-500"
@@ -200,7 +235,7 @@ const AddEpics = ({ }: IProps) => {
               {/* <input placeholder="mm/dd/yyyy" /> */}
               <div className="col-span-1 h-6.25 gap-4 flex flex-col">
                 <label className="text-[11px] text-[#434654] font-bold uppercase leading-[16.5px] tracking-[1.1px] ">
-                DEADLINE 
+                  DEADLINE
                 </label>
               </div>
               <input
@@ -214,6 +249,22 @@ const AddEpics = ({ }: IProps) => {
             </div>
           </div>
 
+          {/* form actions */}
+
+          <div className="flex items-center justify-end gap-4 pt-8 px-6">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={handleCancel}
+              disabled={isLoading}
+              className="text-slate-700 "
+            >
+              Cancel
+            </Button>
+            <Button type="submit" variant="primary" disabled={isLoading}>
+              {isLoading ? 'Creating...' : 'Create Epic'}
+            </Button>
+          </div>
 
         </form>
 
