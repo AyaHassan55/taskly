@@ -118,6 +118,7 @@ const AddEpics = ({ }: IProps) => {
   } = useForm<CreateEpicFormData>({
     resolver: zodResolver(createEpicSchema),
   });
+
   const description = watch("description") || "";
   return (
     <div>
@@ -131,10 +132,10 @@ const AddEpics = ({ }: IProps) => {
         showInviteButton={false}
       />
       {/* ---------form------------ */}
-      <div className='mx-10'>
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-white w-full mx-w-[848px] border border-[#C3C6D61A] rounded-lg pt-5 pb-4 mt-8 ">
+      <div className='md:mx-10'>
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-white w-full  md:max-w-[848px] border border-[#C3C6D61A] rounded-lg pt-5 pb-4 mt-8 mx-auto ">
           {/* title epic */}
-          <div className="grid grid-cols-4 gap-6 px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4  md:gap-6 px-4 md:px-6">
             {/* Label */}
             <div className="col-span-1 pt-2 h-6.25">
               <label className="text-[11px] font-bold uppercase leading-[16.5px] tracking-[1.1px] ">
@@ -167,7 +168,7 @@ const AddEpics = ({ }: IProps) => {
           </div>
 
           {/* description */}
-          <div className="grid grid-cols-4 gap-6 px-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4  md:gap-6 px-4 md:px-6 mt-6">
             {/* Label */}
             <div className="col-span-1 pt-2 h-6.25 flex flex-col">
               <label className="text-[11px] font-bold uppercase leading-[16.5px] tracking-[1.1px] ">
@@ -177,7 +178,7 @@ const AddEpics = ({ }: IProps) => {
             </div>
 
             {/* textarea */}
-            <div className="col-span-3 w-full">
+            <div className="md:col-span-3 w-full">
               <textarea
                 rows={5}
                 {...register("description")}
@@ -205,8 +206,8 @@ const AddEpics = ({ }: IProps) => {
           </div>
 
           {/* Assignee row */}
-          <div className="grid grid-cols-2 grid-rows-1 w-full h-[80.5px] gap-8 px-6 mt-6">
-            <div className="col-start-1 row-start-1 col-span-1 row-span-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-6 md:gap-8 px-3 md:px-6 mt-6">
+            <div className="w-full">
 
               {/* <input placeholder="Select a member..." /> */}
               <SelectField
@@ -230,7 +231,7 @@ const AddEpics = ({ }: IProps) => {
 
 
             {/* -------deadline--------- */}
-            <div className="col-start-2 row-start-1 col-span-1 row-span-1">
+            <div className="w-full">
 
               {/* <input placeholder="mm/dd/yyyy" /> */}
               <div className="col-span-1 h-6.25 gap-4 flex flex-col">
@@ -251,7 +252,7 @@ const AddEpics = ({ }: IProps) => {
 
           {/* form actions */}
 
-          <div className="flex items-center justify-end gap-4 pt-8 px-6">
+          <div className="flex flex-col-reverse md:flex-row items-stretch md:items-center justify-end gap-4 pt-8 px-4 md:px-6 mb-14">
             <Button
               type="button"
               variant="ghost"
