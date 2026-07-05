@@ -37,7 +37,7 @@ const ProjectEpics=({}:IProps)=> {
 
 
   },[projectId]);
-console.log('epics:',epics)
+
   if(epics.length === 0)return <EmptyEpic projectId={projectId! }/>
   return (
     <div>
