@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'surface';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -7,6 +7,7 @@ type ButtonProps = {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({

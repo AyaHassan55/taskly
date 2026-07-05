@@ -52,7 +52,7 @@ const AddEpics = ({ }: IProps) => {
     };
 
     fetchProject();
-  }, [projectId]);
+  }, [projectId, token]);
 
   // --------get members-------------
   useEffect(() => {
