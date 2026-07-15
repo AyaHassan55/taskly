@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ROUTES } from "../../constants/Routes";
+import { PATHS, ROUTES } from "../../constants/Routes";
 import ArrowRight from "../../assets/icons/Icon_rarrow.svg?react"
 import InviteMember from "../../assets/icons/Icon-project-member.svg?react"
 interface ProjectPageHeaderProps {
@@ -7,13 +7,14 @@ interface ProjectPageHeaderProps {
   projectName: string;
   pageTitle: string;
   currentPage: string;
+  projectid?: string;
   showInviteButton?: boolean;
 }
 
 const ProjectPageHeader = ({checkWord,
   projectName,
   pageTitle,
-  currentPage,
+  currentPage,projectid,
   showInviteButton = true,
 }: ProjectPageHeaderProps) => {
   return (
@@ -37,7 +38,7 @@ const ProjectPageHeader = ({checkWord,
           {checkWord==='epic' &&
           <>
           
-           <Link to={ROUTES.PROJECT_EPICS} className="text-xs font-bold uppercase text-[#43465499]">
+           <Link to={projectid ? PATHS.projectEpics(projectid) : ROUTES.PROJECTS} className="text-xs font-bold uppercase text-[#43465499]">
             Epics
           </Link>
           <ArrowRight className="w-[3.7px] h-1.5 text-[#43465466]" />

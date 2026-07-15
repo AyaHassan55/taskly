@@ -12,6 +12,7 @@ import Button from "../../components/ui/Button";
 import SearchIcon from "../../assets/icons/search-icon.svg?react";
 import EpicCard from "../../components/EpicCard";
 import type { Epic } from "../../types/epics";
+import Pagination from "../../components/Pagination";
 
 
 interface IProps {
@@ -21,11 +22,16 @@ interface IProps {
 }
 
 const ProjectEpics = ({ }: IProps) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const { projectId } = useParams();
   const [epics, setEpics] = useState<Epic[]>([]);
   const [projectName, setProjectName] = useState('');
+   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
+  const limit = 4;
+
+  const totalPages = Math.ceil(totalCount / limit);
   const token = Cookies.get("access_token");
 
   // -----------get epics by project id----------------
@@ -34,8 +40,10 @@ const ProjectEpics = ({ }: IProps) => {
     const getEpics = async () => {
       setLoading(true);
       try {
-        const epicsData = await getEpicsByProjectId(projectId, token);
-        setEpics(epicsData);
+        const offset = (currentPage - 1) * limit;
+        const epicsData = await getEpicsByProjectId(projectId, token,limit,offset);
+        setEpics(epicsData.data);
+        setTotalCount(epicsData.totalCount)
       } catch (error) {
         console.error("Failed to fetch epics:", error);
       } finally {
@@ -44,7 +52,11 @@ const ProjectEpics = ({ }: IProps) => {
     }
 
     getEpics();
-  }, [projectId, token]);
+  }, [projectId, token,currentPage]);
+
+  useEffect(() => {
+  setCurrentPage(1);
+}, [projectId]);
   // -----------get project by id----------------
   useEffect(() => {
     const fetchProject = async () => {
@@ -63,7 +75,6 @@ const ProjectEpics = ({ }: IProps) => {
     return <div className="py-8 text-sm text-slate-500">Loading epics...</div>;
   }
 
-  if (!epics.length) return <EmptyEpic projectId={projectId!} />
   return (
     <div>
       {/* breadcrumb */}
@@ -109,16 +120,35 @@ const ProjectEpics = ({ }: IProps) => {
 
 
       {/* ----content------ */}
-     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 mt-8">
-            {epics.map(epic => (
-              <EpicCard
-                key={epic.id}
-                epic={epic}
-                // onClick={() => handleEpicClick(epic)}
-              />
-            ))}
-          </div>
+      {epics.length === 0 ? (
+        <div className="mt-8">
+          <EmptyEpic projectId={projectId!} />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 mt-8">
+          {epics.map((epic) => (
+            <EpicCard
+              key={epic.id}
+              epic={epic}
+            />
+          ))}
+        </div>
+      )}
 
+      {/* pagination */}
+      {totalPages > 1 && <div className="hidden md:flex justify-between items-center px-8 pt-12 pb-8 ">
+        <div>
+          <p className="text-[#434654] text-[12px] font-medium leading-4 ">Showing {epics.length} of {totalCount} active projects</p>
+        </div>
+
+       <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={setCurrentPage}
+    />
+
+
+      </div>}
 
     </div>
   );

@@ -8,10 +8,11 @@ import Cookies from "js-cookie"
 import LoadingProject from "../../../components/ui/projects/LoadingProject"
 import ErrorProject from "../../../components/ui/projects/ErrorProject"
 import EmptyProject from "../../../components/ui/projects/EmptyProject"
-import ArrowIcon from "../../../assets/icons/Icon_rarrow.svg?react"
+
 import type { Project } from "../../../types/project"
 import ProjectCard from "../../../components/ProjectCard"
 import { formatDate } from "../../../utils/date-format"
+import Pagination from "../../../components/Pagination"
 interface IProps {
 
 
@@ -60,7 +61,6 @@ const Projects = ({ }: IProps) => {
 
   }, [navigate, currentPage]);
 
-  const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   if (loading) {
     return <LoadingProject />
@@ -127,32 +127,11 @@ const Projects = ({ }: IProps) => {
           <p className="text-[#434654] text-[12px] font-medium leading-4 ">Showing {projects.length} of {totalCount} active projects</p>
         </div>
 
-        <div className="flex items-center justify-center gap-2 ">
-          {/* prev button */}
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((prev) => prev - 1)}
-            className="flex items-center justify-center rotate-180 border border-[#C3C6D64D] rounded-xs w-8 h-8  cursor-pointer ">
-
-            <ArrowIcon className="text-[#434654] w-[4.31px] h-1.75 " />
-
-
-          </button>
-          {
-            pages.map((page) => (
-              <button onClick={() => setCurrentPage(page)} className={` cursor-pointer border border-[#C3C6D64D] rounded-xs w-8 h-8  ${currentPage === page ? " bg-[#003D9B] " : ""}`}>
-                <span className={`text-[12px] font-bold leading-4 text-[#434654] transition-shadow ${currentPage === page ? "text-[#FFFFFF]" : "text-[#434654]"} `}>{page}</span>
-              </button>
-            ))
-          }
-          {/* next button */}
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-            className="flex items-center justify-center border border-[#C3C6D64D] rounded-xs  w-8 h-8  cursor-pointer">
-            <ArrowIcon className="text-[#434654] w-[4.31px] h-1.75 " />
-          </button>
-        </div>
+       <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={setCurrentPage}
+    />
 
 
       </div>}

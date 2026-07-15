@@ -129,11 +129,12 @@ const AddEpics = ({ }: IProps) => {
         projectName={projectName}
         pageTitle="Create New Epics"
         currentPage="new epic"
+        projectid={projectId}
         showInviteButton={false}
       />
       {/* ---------form------------ */}
       <div className='md:mx-10'>
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-white w-full  md:max-w-[848px] border border-[#C3C6D61A] rounded-lg pt-5 pb-4 mt-8 mx-auto ">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-white w-full md:max-w-212 border border-[#C3C6D61A] rounded-lg pt-5 pb-4 mt-8 mx-auto ">
           {/* title epic */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4  md:gap-6 px-4 md:px-6">
             {/* Label */}
