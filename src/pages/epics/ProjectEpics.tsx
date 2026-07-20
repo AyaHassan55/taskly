@@ -76,9 +76,9 @@ const ProjectEpics = ({ }: IProps) => {
   }
 
   return (
-    <div>
+    <div className="px-6 md:px-0">
       {/* breadcrumb */}
-      <div className="flex items-center gap-4 mb-2">
+      <div className="hidden md:flex items-center gap-4 mb-2">
         <Link
           to={ROUTES.PROJECTS}
           className="text-xs font-bold uppercase text-[#43465499]"
@@ -102,8 +102,8 @@ const ProjectEpics = ({ }: IProps) => {
 
 
       </div>
-      {/* headers and search input */}
-      <div className="flex items-center justify-between gap-4">
+      {/* headers and search input desktop */}
+      <div className="hidden md:flex items-center justify-between gap-4">
         <h1 className="text-[30px] font-bold text-[#041B3C] leading-9 tracking-[-0.75px] ">Project Epics</h1>
         <div className="flex items-center gap-4">
           <label className="flex items-center min-w-73 gap-2 rounded-sm border border-slate-200 bg-[#D7E2FF] px-3 py-3 ">
@@ -117,7 +117,15 @@ const ProjectEpics = ({ }: IProps) => {
           <Button onClick={() => projectId && navigate(PATHS.addEpic(projectId))}>+ New Epic</Button>
         </div>
       </div>
-
+      {/* serach input in mobile */}
+      <label className="md:hidden flex items-center min-w-73 gap-2 rounded-lg border border-slate-200 bg-[#D7E2FF] px-3 py-3 ">
+            <SearchIcon className="w-4 h-4 text-slate-400 shrink-0" />
+            <input
+              type="search"
+              placeholder="Search epics..."
+              className="w-44 border-0 bg-transparent outline-none placeholder:text-slate-400"
+            />
+          </label>
 
       {/* ----content------ */}
       {epics.length === 0 ? (
