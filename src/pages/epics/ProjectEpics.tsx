@@ -13,6 +13,8 @@ import SearchIcon from "../../assets/icons/search-icon.svg?react";
 import EpicCard from "../../components/EpicCard";
 import type { Epic } from "../../types/epics";
 import Pagination from "../../components/Pagination";
+import ErrorEpic from "../../components/ui/project_epic/ErrorEpic";
+import LoadingEpic from "../../components/ui/project_epic/LoadingEpic";
 
 
 interface IProps {
@@ -29,6 +31,7 @@ const ProjectEpics = ({ }: IProps) => {
    const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
+  const [error, setError] = useState(false);
   const limit = 4;
 
   const totalPages = Math.ceil(totalCount / limit);
@@ -44,8 +47,10 @@ const ProjectEpics = ({ }: IProps) => {
         const epicsData = await getEpicsByProjectId(projectId, token,limit,offset);
         setEpics(epicsData.data);
         setTotalCount(epicsData.totalCount)
+        setError(false);
       } catch (error) {
-        console.error("Failed to fetch epics:", error);
+        toast.error('failed to fetch epics');
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -64,17 +69,22 @@ const ProjectEpics = ({ }: IProps) => {
       try {
         const project = await getProjectById(token, projectId);
         setProjectName(project.name);
+        setError(false);
       } catch (error) {
-        toast.error("Failed to fetch project:");
+        toast.error("Failed to fetch project");
+        setError(true);
       }
     };
     fetchProject();
   }, [token, projectId]);
 
-  if (loading) {
-    return <div className="py-8 text-sm text-slate-500">Loading epics...</div>;
-  }
+  if (loading)
+    return <LoadingEpic />;
 
+if (error)
+    return (
+        <ErrorEpic />
+    );
   return (
     <div className="px-6 md:px-0">
       {/* breadcrumb */}
